@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tomcat360.atm.mapper.TbEquipmentSettingsMapper" >
+  <resultMap id="BaseResultMap" type="com.tomcat360.atm.model.TbEquipmentSettings" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="equipment_type" property="equipmentType" jdbcType="CHAR" />
+    <result column="equipment_sub_type" property="equipmentSubType" jdbcType="VARCHAR" />
+    <result column="equipment_version" property="equipmentVersion" jdbcType="VARCHAR" />
+    <result column="soft_version" property="softVersion" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="operateos" property="operateos" jdbcType="VARCHAR" />
+    <result column="browser" property="browser" jdbcType="VARCHAR" />
+    <result column="install_location" property="installLocation" jdbcType="VARCHAR" />
+    <result column="pre_ip" property="preIp" jdbcType="VARCHAR" />
+    <result column="pre_port" property="prePort" jdbcType="VARCHAR" />
+    <result column="monitor_port" property="monitorPort" jdbcType="VARCHAR" />
+    <result column="monitor_file" property="monitorFile" jdbcType="VARCHAR" />
+    <result column="version_server_port" property="versionServerPort" jdbcType="VARCHAR" />
+    <result column="version_server_file_port" property="versionServerFilePort" jdbcType="VARCHAR" />
+    <result column="local_monitor_port" property="localMonitorPort" jdbcType="VARCHAR" />
+    <result column="local_file_monitor_port" property="localFileMonitorPort" jdbcType="VARCHAR" />
+    <result column="limit_per_day" property="limitPerDay" jdbcType="DECIMAL" />
+    <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="master_key" property="masterKey" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="private_key" property="privateKey" jdbcType="VARCHAR" />
+    <result column="online_time" property="onlineTime" jdbcType="TIMESTAMP" />
+    <result column="use_state" property="useState" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, equipment_type, equipment_sub_type, equipment_version, soft_version, brand, operateos, 
+    browser, install_location, pre_ip, pre_port, monitor_port, monitor_file, version_server_port, 
+    version_server_file_port, local_monitor_port, local_file_monitor_port, limit_per_day, 
+    currency_code, master_key, amount, private_key, online_time, use_state, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tomcat360.atm.model.TbEquipmentSettingsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_equipment_settings
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_equipment_settings
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_equipment_settings
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tomcat360.atm.model.TbEquipmentSettingsExample" >
+    delete from tb_equipment_settings
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tomcat360.atm.model.TbEquipmentSettings" >
+    insert into tb_equipment_settings (id, equipment_type, equipment_sub_type, 
+      equipment_version, soft_version, brand, 
+      operateos, browser, install_location, 
+      pre_ip, pre_port, monitor_port, 
+      monitor_file, version_server_port, version_server_file_port, 
+      local_monitor_port, local_file_monitor_port, 
+      limit_per_day, currency_code, master_key, 
+      amount, private_key, online_time, 
+      use_state, create_time)
+    values (#{id,jdbcType=VARCHAR}, #{equipmentType,jdbcType=CHAR}, #{equipmentSubType,jdbcType=VARCHAR}, 
+      #{equipmentVersion,jdbcType=VARCHAR}, #{softVersion,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
+      #{operateos,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR}, #{installLocation,jdbcType=VARCHAR}, 
+      #{preIp,jdbcType=VARCHAR}, #{prePort,jdbcType=VARCHAR}, #{monitorPort,jdbcType=VARCHAR}, 
+      #{monitorFile,jdbcType=VARCHAR}, #{versionServerPort,jdbcType=VARCHAR}, #{versionServerFilePort,jdbcType=VARCHAR}, 
+      #{localMonitorPort,jdbcType=VARCHAR}, #{localFileMonitorPort,jdbcType=VARCHAR}, 
+      #{limitPerDay,jdbcType=DECIMAL}, #{currencyCode,jdbcType=VARCHAR}, #{masterKey,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{privateKey,jdbcType=VARCHAR}, #{onlineTime,jdbcType=TIMESTAMP}, 
+      #{useState,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tomcat360.atm.model.TbEquipmentSettings" >
+    insert into tb_equipment_settings
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="equipmentType != null" >
+        equipment_type,
+      </if>
+      <if test="equipmentSubType != null" >
+        equipment_sub_type,
+      </if>
+      <if test="equipmentVersion != null" >
+        equipment_version,
+      </if>
+      <if test="softVersion != null" >
+        soft_version,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="operateos != null" >
+        operateos,
+      </if>
+      <if test="browser != null" >
+        browser,
+      </if>
+      <if test="installLocation != null" >
+        install_location,
+      </if>
+      <if test="preIp != null" >
+        pre_ip,
+      </if>
+      <if test="prePort != null" >
+        pre_port,
+      </if>
+      <if test="monitorPort != null" >
+        monitor_port,
+      </if>
+      <if test="monitorFile != null" >
+        monitor_file,
+      </if>
+      <if test="versionServerPort != null" >
+        version_server_port,
+      </if>
+      <if test="versionServerFilePort != null" >
+        version_server_file_port,
+      </if>
+      <if test="localMonitorPort != null" >
+        local_monitor_port,
+      </if>
+      <if test="localFileMonitorPort != null" >
+        local_file_monitor_port,
+      </if>
+      <if test="limitPerDay != null" >
+        limit_per_day,
+      </if>
+      <if test="currencyCode != null" >
+        currency_code,
+      </if>
+      <if test="masterKey != null" >
+        master_key,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="privateKey != null" >
+        private_key,
+      </if>
+      <if test="onlineTime != null" >
+        online_time,
+      </if>
+      <if test="useState != null" >
+        use_state,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentType != null" >
+        #{equipmentType,jdbcType=CHAR},
+      </if>
+      <if test="equipmentSubType != null" >
+        #{equipmentSubType,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentVersion != null" >
+        #{equipmentVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="softVersion != null" >
+        #{softVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="operateos != null" >
+        #{operateos,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null" >
+        #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="installLocation != null" >
+        #{installLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="preIp != null" >
+        #{preIp,jdbcType=VARCHAR},
+      </if>
+      <if test="prePort != null" >
+        #{prePort,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorPort != null" >
+        #{monitorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorFile != null" >
+        #{monitorFile,jdbcType=VARCHAR},
+      </if>
+      <if test="versionServerPort != null" >
+        #{versionServerPort,jdbcType=VARCHAR},
+      </if>
+      <if test="versionServerFilePort != null" >
+        #{versionServerFilePort,jdbcType=VARCHAR},
+      </if>
+      <if test="localMonitorPort != null" >
+        #{localMonitorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="localFileMonitorPort != null" >
+        #{localFileMonitorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="limitPerDay != null" >
+        #{limitPerDay,jdbcType=DECIMAL},
+      </if>
+      <if test="currencyCode != null" >
+        #{currencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="masterKey != null" >
+        #{masterKey,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="privateKey != null" >
+        #{privateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTime != null" >
+        #{onlineTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useState != null" >
+        #{useState,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tomcat360.atm.model.TbEquipmentSettingsExample" resultType="java.lang.Integer" >
+    select count(*) from tb_equipment_settings
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_equipment_settings
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentType != null" >
+        equipment_type = #{record.equipmentType,jdbcType=CHAR},
+      </if>
+      <if test="record.equipmentSubType != null" >
+        equipment_sub_type = #{record.equipmentSubType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentVersion != null" >
+        equipment_version = #{record.equipmentVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.softVersion != null" >
+        soft_version = #{record.softVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brand != null" >
+        brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateos != null" >
+        operateos = #{record.operateos,jdbcType=VARCHAR},
+      </if>
+      <if test="record.browser != null" >
+        browser = #{record.browser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.installLocation != null" >
+        install_location = #{record.installLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preIp != null" >
+        pre_ip = #{record.preIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prePort != null" >
+        pre_port = #{record.prePort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monitorPort != null" >
+        monitor_port = #{record.monitorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monitorFile != null" >
+        monitor_file = #{record.monitorFile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionServerPort != null" >
+        version_server_port = #{record.versionServerPort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionServerFilePort != null" >
+        version_server_file_port = #{record.versionServerFilePort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.localMonitorPort != null" >
+        local_monitor_port = #{record.localMonitorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.localFileMonitorPort != null" >
+        local_file_monitor_port = #{record.localFileMonitorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limitPerDay != null" >
+        limit_per_day = #{record.limitPerDay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.currencyCode != null" >
+        currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.masterKey != null" >
+        master_key = #{record.masterKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.privateKey != null" >
+        private_key = #{record.privateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onlineTime != null" >
+        online_time = #{record.onlineTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.useState != null" >
+        use_state = #{record.useState,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_equipment_settings
+    set id = #{record.id,jdbcType=VARCHAR},
+      equipment_type = #{record.equipmentType,jdbcType=CHAR},
+      equipment_sub_type = #{record.equipmentSubType,jdbcType=VARCHAR},
+      equipment_version = #{record.equipmentVersion,jdbcType=VARCHAR},
+      soft_version = #{record.softVersion,jdbcType=VARCHAR},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      operateos = #{record.operateos,jdbcType=VARCHAR},
+      browser = #{record.browser,jdbcType=VARCHAR},
+      install_location = #{record.installLocation,jdbcType=VARCHAR},
+      pre_ip = #{record.preIp,jdbcType=VARCHAR},
+      pre_port = #{record.prePort,jdbcType=VARCHAR},
+      monitor_port = #{record.monitorPort,jdbcType=VARCHAR},
+      monitor_file = #{record.monitorFile,jdbcType=VARCHAR},
+      version_server_port = #{record.versionServerPort,jdbcType=VARCHAR},
+      version_server_file_port = #{record.versionServerFilePort,jdbcType=VARCHAR},
+      local_monitor_port = #{record.localMonitorPort,jdbcType=VARCHAR},
+      local_file_monitor_port = #{record.localFileMonitorPort,jdbcType=VARCHAR},
+      limit_per_day = #{record.limitPerDay,jdbcType=DECIMAL},
+      currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+      master_key = #{record.masterKey,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      private_key = #{record.privateKey,jdbcType=VARCHAR},
+      online_time = #{record.onlineTime,jdbcType=TIMESTAMP},
+      use_state = #{record.useState,jdbcType=CHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tomcat360.atm.model.TbEquipmentSettings" >
+    update tb_equipment_settings
+    <set >
+      <if test="equipmentType != null" >
+        equipment_type = #{equipmentType,jdbcType=CHAR},
+      </if>
+      <if test="equipmentSubType != null" >
+        equipment_sub_type = #{equipmentSubType,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentVersion != null" >
+        equipment_version = #{equipmentVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="softVersion != null" >
+        soft_version = #{softVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="operateos != null" >
+        operateos = #{operateos,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null" >
+        browser = #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="installLocation != null" >
+        install_location = #{installLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="preIp != null" >
+        pre_ip = #{preIp,jdbcType=VARCHAR},
+      </if>
+      <if test="prePort != null" >
+        pre_port = #{prePort,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorPort != null" >
+        monitor_port = #{monitorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorFile != null" >
+        monitor_file = #{monitorFile,jdbcType=VARCHAR},
+      </if>
+      <if test="versionServerPort != null" >
+        version_server_port = #{versionServerPort,jdbcType=VARCHAR},
+      </if>
+      <if test="versionServerFilePort != null" >
+        version_server_file_port = #{versionServerFilePort,jdbcType=VARCHAR},
+      </if>
+      <if test="localMonitorPort != null" >
+        local_monitor_port = #{localMonitorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="localFileMonitorPort != null" >
+        local_file_monitor_port = #{localFileMonitorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="limitPerDay != null" >
+        limit_per_day = #{limitPerDay,jdbcType=DECIMAL},
+      </if>
+      <if test="currencyCode != null" >
+        currency_code = #{currencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="masterKey != null" >
+        master_key = #{masterKey,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="privateKey != null" >
+        private_key = #{privateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTime != null" >
+        online_time = #{onlineTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useState != null" >
+        use_state = #{useState,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tomcat360.atm.model.TbEquipmentSettings" >
+    update tb_equipment_settings
+    set equipment_type = #{equipmentType,jdbcType=CHAR},
+      equipment_sub_type = #{equipmentSubType,jdbcType=VARCHAR},
+      equipment_version = #{equipmentVersion,jdbcType=VARCHAR},
+      soft_version = #{softVersion,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      operateos = #{operateos,jdbcType=VARCHAR},
+      browser = #{browser,jdbcType=VARCHAR},
+      install_location = #{installLocation,jdbcType=VARCHAR},
+      pre_ip = #{preIp,jdbcType=VARCHAR},
+      pre_port = #{prePort,jdbcType=VARCHAR},
+      monitor_port = #{monitorPort,jdbcType=VARCHAR},
+      monitor_file = #{monitorFile,jdbcType=VARCHAR},
+      version_server_port = #{versionServerPort,jdbcType=VARCHAR},
+      version_server_file_port = #{versionServerFilePort,jdbcType=VARCHAR},
+      local_monitor_port = #{localMonitorPort,jdbcType=VARCHAR},
+      local_file_monitor_port = #{localFileMonitorPort,jdbcType=VARCHAR},
+      limit_per_day = #{limitPerDay,jdbcType=DECIMAL},
+      currency_code = #{currencyCode,jdbcType=VARCHAR},
+      master_key = #{masterKey,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      private_key = #{privateKey,jdbcType=VARCHAR},
+      online_time = #{onlineTime,jdbcType=TIMESTAMP},
+      use_state = #{useState,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

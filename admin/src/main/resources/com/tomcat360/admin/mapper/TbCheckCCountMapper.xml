@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tomcat360.admin.mapper.TbCheckCCountMapper" >
+  <resultMap id="BaseResultMap" type="com.tomcat360.admin.model.TbCheckCCount" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="equipment_id" property="equipmentId" jdbcType="VARCHAR" />
+    <result column="check_batch_no" property="checkBatchNo" jdbcType="VARCHAR" />
+    <result column="success_num" property="successNum" jdbcType="INTEGER" />
+    <result column="success_amt" property="successAmt" jdbcType="DECIMAL" />
+    <result column="err_num" property="errNum" jdbcType="INTEGER" />
+    <result column="err_amt" property="errAmt" jdbcType="DECIMAL" />
+    <result column="correct_num" property="correctNum" jdbcType="INTEGER" />
+    <result column="correct_amt" property="correctAmt" jdbcType="DECIMAL" />
+    <result column="unknown_num" property="unknownNum" jdbcType="INTEGER" />
+    <result column="unknown_amt" property="unknownAmt" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, equipment_id, check_batch_no, success_num, success_amt, err_num, err_amt, correct_num, 
+    correct_amt, unknown_num, unknown_amt, create_time, update_time, type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tomcat360.admin.model.TbCheckCCountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_check_c_count
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_check_c_count
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_check_c_count
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tomcat360.admin.model.TbCheckCCountExample" >
+    delete from tb_check_c_count
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tomcat360.admin.model.TbCheckCCount" >
+    insert into tb_check_c_count (id, equipment_id, check_batch_no, 
+      success_num, success_amt, err_num, 
+      err_amt, correct_num, correct_amt, 
+      unknown_num, unknown_amt, create_time, 
+      update_time, type)
+    values (#{id,jdbcType=BIGINT}, #{equipmentId,jdbcType=VARCHAR}, #{checkBatchNo,jdbcType=VARCHAR}, 
+      #{successNum,jdbcType=INTEGER}, #{successAmt,jdbcType=DECIMAL}, #{errNum,jdbcType=INTEGER}, 
+      #{errAmt,jdbcType=DECIMAL}, #{correctNum,jdbcType=INTEGER}, #{correctAmt,jdbcType=DECIMAL}, 
+      #{unknownNum,jdbcType=INTEGER}, #{unknownAmt,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tomcat360.admin.model.TbCheckCCount" >
+    insert into tb_check_c_count
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="equipmentId != null" >
+        equipment_id,
+      </if>
+      <if test="checkBatchNo != null" >
+        check_batch_no,
+      </if>
+      <if test="successNum != null" >
+        success_num,
+      </if>
+      <if test="successAmt != null" >
+        success_amt,
+      </if>
+      <if test="errNum != null" >
+        err_num,
+      </if>
+      <if test="errAmt != null" >
+        err_amt,
+      </if>
+      <if test="correctNum != null" >
+        correct_num,
+      </if>
+      <if test="correctAmt != null" >
+        correct_amt,
+      </if>
+      <if test="unknownNum != null" >
+        unknown_num,
+      </if>
+      <if test="unknownAmt != null" >
+        unknown_amt,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="checkBatchNo != null" >
+        #{checkBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="successNum != null" >
+        #{successNum,jdbcType=INTEGER},
+      </if>
+      <if test="successAmt != null" >
+        #{successAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="errNum != null" >
+        #{errNum,jdbcType=INTEGER},
+      </if>
+      <if test="errAmt != null" >
+        #{errAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="correctNum != null" >
+        #{correctNum,jdbcType=INTEGER},
+      </if>
+      <if test="correctAmt != null" >
+        #{correctAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="unknownNum != null" >
+        #{unknownNum,jdbcType=INTEGER},
+      </if>
+      <if test="unknownAmt != null" >
+        #{unknownAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tomcat360.admin.model.TbCheckCCountExample" resultType="java.lang.Integer" >
+    select count(*) from tb_check_c_count
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_check_c_count
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.equipmentId != null" >
+        equipment_id = #{record.equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkBatchNo != null" >
+        check_batch_no = #{record.checkBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.successNum != null" >
+        success_num = #{record.successNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.successAmt != null" >
+        success_amt = #{record.successAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.errNum != null" >
+        err_num = #{record.errNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.errAmt != null" >
+        err_amt = #{record.errAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.correctNum != null" >
+        correct_num = #{record.correctNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.correctAmt != null" >
+        correct_amt = #{record.correctAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unknownNum != null" >
+        unknown_num = #{record.unknownNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.unknownAmt != null" >
+        unknown_amt = #{record.unknownAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_check_c_count
+    set id = #{record.id,jdbcType=BIGINT},
+      equipment_id = #{record.equipmentId,jdbcType=VARCHAR},
+      check_batch_no = #{record.checkBatchNo,jdbcType=VARCHAR},
+      success_num = #{record.successNum,jdbcType=INTEGER},
+      success_amt = #{record.successAmt,jdbcType=DECIMAL},
+      err_num = #{record.errNum,jdbcType=INTEGER},
+      err_amt = #{record.errAmt,jdbcType=DECIMAL},
+      correct_num = #{record.correctNum,jdbcType=INTEGER},
+      correct_amt = #{record.correctAmt,jdbcType=DECIMAL},
+      unknown_num = #{record.unknownNum,jdbcType=INTEGER},
+      unknown_amt = #{record.unknownAmt,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tomcat360.admin.model.TbCheckCCount" >
+    update tb_check_c_count
+    <set >
+      <if test="equipmentId != null" >
+        equipment_id = #{equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="checkBatchNo != null" >
+        check_batch_no = #{checkBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="successNum != null" >
+        success_num = #{successNum,jdbcType=INTEGER},
+      </if>
+      <if test="successAmt != null" >
+        success_amt = #{successAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="errNum != null" >
+        err_num = #{errNum,jdbcType=INTEGER},
+      </if>
+      <if test="errAmt != null" >
+        err_amt = #{errAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="correctNum != null" >
+        correct_num = #{correctNum,jdbcType=INTEGER},
+      </if>
+      <if test="correctAmt != null" >
+        correct_amt = #{correctAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="unknownNum != null" >
+        unknown_num = #{unknownNum,jdbcType=INTEGER},
+      </if>
+      <if test="unknownAmt != null" >
+        unknown_amt = #{unknownAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tomcat360.admin.model.TbCheckCCount" >
+    update tb_check_c_count
+    set equipment_id = #{equipmentId,jdbcType=VARCHAR},
+      check_batch_no = #{checkBatchNo,jdbcType=VARCHAR},
+      success_num = #{successNum,jdbcType=INTEGER},
+      success_amt = #{successAmt,jdbcType=DECIMAL},
+      err_num = #{errNum,jdbcType=INTEGER},
+      err_amt = #{errAmt,jdbcType=DECIMAL},
+      correct_num = #{correctNum,jdbcType=INTEGER},
+      correct_amt = #{correctAmt,jdbcType=DECIMAL},
+      unknown_num = #{unknownNum,jdbcType=INTEGER},
+      unknown_amt = #{unknownAmt,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- extend -->
+  <select id="countCStatus" parameterType="Map" resultMap="BaseResultMap">
+    select * from tb_check_c_count c where
+    c.check_batch_no = #{checkBatchNo}
+    and c.equipment_id = #{equipmentId}
+    and c.type = #{type}
+  </select>
+</mapper>

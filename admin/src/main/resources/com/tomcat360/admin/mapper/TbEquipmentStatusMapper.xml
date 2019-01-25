@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tomcat360.admin.mapper.TbEquipmentStatusMapper">
+	<resultMap id="BaseResultMap" type="com.tomcat360.admin.model.TbEquipmentStatus">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="trans_status" property="transStatus" jdbcType="CHAR" />
+		<result column="running_status" property="runningStatus"
+			jdbcType="CHAR" />
+		<result column="module_status" property="moduleStatus"
+			jdbcType="CHAR" />
+		<result column="banknote_box_status" property="banknoteBoxStatus"
+			jdbcType="CHAR" />
+		<result column="network_status" property="networkStatus"
+			jdbcType="CHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="trans_time" property="transTime" jdbcType="TIMESTAMP" />
+		<result column="equipment_no" property="equipmentNo" jdbcType="VARCHAR" />
+		<result column="prr_status" property="prrStatus" jdbcType="CHAR" />
+		<result column="cim_status" property="cimStatus" jdbcType="CHAR" />
+		<result column="maintain_status" property="maintainStatus"
+			jdbcType="CHAR" />
+		<result column="connect_status" property="connectStatus"
+			jdbcType="CHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, trans_status, running_status, module_status,
+		banknote_box_status,
+		network_status,
+		update_time, trans_time,
+		equipment_no, prr_status, cim_status, maintain_status,
+		connect_status
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.tomcat360.admin.model.TbEquipmentStatusExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from tb_equipment_status
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_equipment_status
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		tb_equipment_status
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.tomcat360.admin.model.TbEquipmentStatusExample">
+		delete from tb_equipment_status
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.tomcat360.admin.model.TbEquipmentStatus">
+		insert into
+		tb_equipment_status (id, trans_status, running_status,
+		module_status,
+		banknote_box_status, network_status,
+		update_time, trans_time,
+		equipment_no,
+		prr_status, cim_status, maintain_status,
+		connect_status)
+		values (#{id,jdbcType=VARCHAR}, #{transStatus,jdbcType=CHAR},
+		#{runningStatus,jdbcType=CHAR},
+		#{moduleStatus,jdbcType=CHAR},
+		#{banknoteBoxStatus,jdbcType=CHAR}, #{networkStatus,jdbcType=CHAR},
+		#{updateTime,jdbcType=TIMESTAMP}, #{transTime,jdbcType=TIMESTAMP},
+		#{equipmentNo,jdbcType=VARCHAR},
+		#{prrStatus,jdbcType=CHAR},
+		#{cimStatus,jdbcType=CHAR}, #{maintainStatus,jdbcType=CHAR},
+		#{connectStatus,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.tomcat360.admin.model.TbEquipmentStatus">
+		insert into tb_equipment_status
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="transStatus != null">
+				trans_status,
+			</if>
+			<if test="runningStatus != null">
+				running_status,
+			</if>
+			<if test="moduleStatus != null">
+				module_status,
+			</if>
+			<if test="banknoteBoxStatus != null">
+				banknote_box_status,
+			</if>
+			<if test="networkStatus != null">
+				network_status,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="transTime != null">
+				trans_time,
+			</if>
+			<if test="equipmentNo != null">
+				equipment_no,
+			</if>
+			<if test="prrStatus != null">
+				prr_status,
+			</if>
+			<if test="cimStatus != null">
+				cim_status,
+			</if>
+			<if test="maintainStatus != null">
+				maintain_status,
+			</if>
+			<if test="connectStatus != null">
+				connect_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="transStatus != null">
+				#{transStatus,jdbcType=CHAR},
+			</if>
+			<if test="runningStatus != null">
+				#{runningStatus,jdbcType=CHAR},
+			</if>
+			<if test="moduleStatus != null">
+				#{moduleStatus,jdbcType=CHAR},
+			</if>
+			<if test="banknoteBoxStatus != null">
+				#{banknoteBoxStatus,jdbcType=CHAR},
+			</if>
+			<if test="networkStatus != null">
+				#{networkStatus,jdbcType=CHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="transTime != null">
+				#{transTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="equipmentNo != null">
+				#{equipmentNo,jdbcType=VARCHAR},
+			</if>
+			<if test="prrStatus != null">
+				#{prrStatus,jdbcType=CHAR},
+			</if>
+			<if test="cimStatus != null">
+				#{cimStatus,jdbcType=CHAR},
+			</if>
+			<if test="maintainStatus != null">
+				#{maintainStatus,jdbcType=CHAR},
+			</if>
+			<if test="connectStatus != null">
+				#{connectStatus,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.tomcat360.admin.model.TbEquipmentStatusExample"
+		resultType="java.lang.Integer">
+		select count(*) from tb_equipment_status
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update tb_equipment_status
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.transStatus != null">
+				trans_status = #{record.transStatus,jdbcType=CHAR},
+			</if>
+			<if test="record.runningStatus != null">
+				running_status = #{record.runningStatus,jdbcType=CHAR},
+			</if>
+			<if test="record.moduleStatus != null">
+				module_status = #{record.moduleStatus,jdbcType=CHAR},
+			</if>
+			<if test="record.banknoteBoxStatus != null">
+				banknote_box_status =
+				#{record.banknoteBoxStatus,jdbcType=CHAR},
+			</if>
+			<if test="record.networkStatus != null">
+				network_status = #{record.networkStatus,jdbcType=CHAR},
+			</if>
+			<if test="record.updateTime != null">
+				update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.transTime != null">
+				trans_time = #{record.transTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.equipmentNo != null">
+				equipment_no = #{record.equipmentNo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.prrStatus != null">
+				prr_status = #{record.prrStatus,jdbcType=CHAR},
+			</if>
+			<if test="record.cimStatus != null">
+				cim_status = #{record.cimStatus,jdbcType=CHAR},
+			</if>
+			<if test="record.maintainStatus != null">
+				maintain_status = #{record.maintainStatus,jdbcType=CHAR},
+			</if>
+			<if test="record.connectStatus != null">
+				connect_status = #{record.connectStatus,jdbcType=CHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update tb_equipment_status
+		set id = #{record.id,jdbcType=VARCHAR},
+		trans_status = #{record.transStatus,jdbcType=CHAR},
+		running_status =
+		#{record.runningStatus,jdbcType=CHAR},
+		module_status =
+		#{record.moduleStatus,jdbcType=CHAR},
+		banknote_box_status =
+		#{record.banknoteBoxStatus,jdbcType=CHAR},
+		network_status =
+		#{record.networkStatus,jdbcType=CHAR},
+		update_time =
+		#{record.updateTime,jdbcType=TIMESTAMP},
+		trans_time =
+		#{record.transTime,jdbcType=TIMESTAMP},
+		equipment_no =
+		#{record.equipmentNo,jdbcType=VARCHAR},
+		prr_status =
+		#{record.prrStatus,jdbcType=CHAR},
+		cim_status =
+		#{record.cimStatus,jdbcType=CHAR},
+		maintain_status =
+		#{record.maintainStatus,jdbcType=CHAR},
+		connect_status =
+		#{record.connectStatus,jdbcType=CHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tomcat360.admin.model.TbEquipmentStatus">
+		update tb_equipment_status
+		<set>
+			<if test="transStatus != null">
+				trans_status = #{transStatus,jdbcType=CHAR},
+			</if>
+			<if test="runningStatus != null">
+				running_status = #{runningStatus,jdbcType=CHAR},
+			</if>
+			<if test="moduleStatus != null">
+				module_status = #{moduleStatus,jdbcType=CHAR},
+			</if>
+			<if test="banknoteBoxStatus != null">
+				banknote_box_status = #{banknoteBoxStatus,jdbcType=CHAR},
+			</if>
+			<if test="networkStatus != null">
+				network_status = #{networkStatus,jdbcType=CHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="transTime != null">
+				trans_time = #{transTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="equipmentNo != null">
+				equipment_no = #{equipmentNo,jdbcType=VARCHAR},
+			</if>
+			<if test="prrStatus != null">
+				prr_status = #{prrStatus,jdbcType=CHAR},
+			</if>
+			<if test="cimStatus != null">
+				cim_status = #{cimStatus,jdbcType=CHAR},
+			</if>
+			<if test="maintainStatus != null">
+				maintain_status = #{maintainStatus,jdbcType=CHAR},
+			</if>
+			<if test="connectStatus != null">
+				connect_status = #{connectStatus,jdbcType=CHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tomcat360.admin.model.TbEquipmentStatus">
+		update
+		tb_equipment_status
+		set trans_status = #{transStatus,jdbcType=CHAR},
+		running_status = #{runningStatus,jdbcType=CHAR},
+		module_status =
+		#{moduleStatus,jdbcType=CHAR},
+		banknote_box_status =
+		#{banknoteBoxStatus,jdbcType=CHAR},
+		network_status =
+		#{networkStatus,jdbcType=CHAR},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
+		trans_time =
+		#{transTime,jdbcType=TIMESTAMP},
+		equipment_no =
+		#{equipmentNo,jdbcType=VARCHAR},
+		prr_status =
+		#{prrStatus,jdbcType=CHAR},
+		cim_status = #{cimStatus,jdbcType=CHAR},
+		maintain_status = #{maintainStatus,jdbcType=CHAR},
+		connect_status =
+		#{connectStatus,jdbcType=CHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- extend -->
+
+	<select id="monitorEquipmentList" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes,tb_equipment te
+		<where>
+			tes.id = te.id
+
+			<if test="country != null and country != '' ">
+				and te.country = #{country}
+			</if>
+
+			<if test="transStatus != null and transStatus != '' ">
+				and tes.trans_status = #{transStatus}
+			</if>
+
+			<if test="runningStatus != null and runningStatus != '' ">
+				and tes.running_status = #{runningStatus}
+			</if>
+
+			<if test="moduleStatus != null and moduleStatus != '' ">
+				and tes.module_status = #{moduleStatus}
+			</if>
+
+			<if test="banknoteBoxStatus != null and banknoteBoxStatus != '' ">
+				and tes.banknote_box_status = #{banknoteBoxStatus}
+			</if>
+
+			<if test="networkStatus != null and networkStatus != '' ">
+				and tes.network_status = #{networkStatus}
+			</if>
+			<if test="id != null and id != '' ">
+				and tes.id like "%"#{id}"%"
+			</if>
+
+		</where>
+
+		ORDER BY te.create_time desc,te.equipment_no  desc 
+
+	</select>
+
+	<select id="findDowntimeEquipment" resultType="HashMap">
+		select te.id
+		id,te.country country,te.detail_address detailAddress ,
+
+		(select
+		tefl.down_reason from tb_equipment_faul_log tefl ,tb_equipment_status
+		tes where tefl.equipment_id = te.id and tes.id = te.id and
+		tes.running_status = '5' ORDER BY tefl.create_time desc LIMIT 0,1)
+		downReason,
+
+		(select tefl.down_time from tb_equipment_faul_log tefl ,
+		tb_equipment_status
+		tes where tefl.equipment_id = te.id and tes.id =
+		te.id and
+		tes.running_status = '5' ORDER BY tefl.create_time desc LIMIT
+		0,1)
+		downTime,
+
+		(select tefl.recovery_time from tb_equipment_faul_log
+		tefl,tb_equipment_status tes where tefl.equipment_id = te.id and
+		tes.id = te.id and tes.running_status = '5' ORDER BY tefl.create_time
+		desc LIMIT 0,1) recoveryTime
+
+
+		from tb_equipment_status tes ,tb_equipment
+		te where
+
+		te.id = tes.id and tes.running_status = '1' or
+		tes.running_status = '2'
+		
+	</select>
+
+	<select id="monitorEquipmentList0" parameterType="HashMap"
+		resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes,tb_equipment te where
+		tes.trans_status != '0' and tes.trans_status != '4'
+
+		and
+		tes.trans_status != '9' and te.id = tes.id
+		<if test="transStatus!=null and transStatus!=''">
+			and tes.trans_status = #{transStatus}
+		</if>
+		<if test="country != null and country != '' ">
+			and te.country = #{country}
+		</if>
+
+		<if test="id != null and id != '' ">
+			and te.id = "%"#{id}"%"
+		</if>
+
+		ORDER BY te.create_time desc,te.equipment_no  desc 
+	</select>
+
+	<select id="monitorEquipmentList1" parameterType="HashMap"
+		resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes,tb_equipment te where
+		tes.connect_status != '0' and tes.connect_status!=9 and tes.id = te.id
+		<if test="connectStatus!=null and connectStatus!=''">
+			and tes.connect_status = #{connectStatus}
+		</if>
+		<if test="country != null and country != '' ">
+			and te.country = #{country}
+		</if>
+		<if test="id != null and id != '' ">
+			and te.id = "%"#{id}"%"
+		</if>
+		ORDER BY te.create_time,te.equipment_no  desc 
+	</select>
+
+	<select id="monitorEquipmentList2" parameterType="HashMap"
+		resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes ,tb_equipment te where
+		tes.module_status != '0' and tes.module_status != '4' and
+		tes.module_status != '9' and tes.id = te.id
+		<if test="moduleStatus!=null and moduleStatus!='' ">
+			and tes.module_status = #{moduleStatus}
+		</if>
+		<if test="country != null and country != '' ">
+			and te.country = #{country}
+		</if>
+		<if test="id != null and id != '' ">
+			and te.id = "%"#{id}"%"
+		</if>
+		ORDER BY te.create_time desc,te.equipment_no  desc  
+	</select>
+
+	<select id="monitorEquipmentList3" parameterType="HashMap"
+		resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes,tb_equipment te where
+		tes.banknote_box_status != '0' and tes.banknote_box_status != '5' and
+		tes.banknote_box_status != '9' and tes.id = te.id
+		<if test="banknoteBoxStatus != null and banknoteBoxStatus !='' ">
+			and tes.banknote_box_status = #{banknoteBoxStatus}
+		</if>
+		<if test="country != null and country != '' ">
+			and te.country = #{country}
+		</if>
+		<if test="id != null and id != '' ">
+			and te.id = "%"#{id}"%"
+		</if>
+		ORDER BY te.create_time,te.equipment_no  desc 
+	</select>
+
+	<select id="monitorEquipmentList4" parameterType="HashMap"
+		resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes ,tb_equipment te where
+		tes.network_status != '0' and tes.network_status != '4' and
+		tes.network_status != '9' and tes.id = te.id
+		<if test="networkStatus!=null and networkStatus!=''">
+			and tes.network_status = #{networkStatus}
+		</if>
+		<if test="country != null and country != '' ">
+			and te.country = #{country}
+		</if>
+		<if test="id != null and id != '' ">
+			and te.id = "%"#{id}"%"
+		</if>
+		ORDER BY te.create_time,te.equipment_no  desc 
+	</select>
+
+	<select id="monitorEquipmentList5" parameterType="HashMap"
+		resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes ,tb_equipment te where
+		tes.prr_status != '0' and tes.prr_status != '4' and tes.prr_status !=
+		'9' and tes.id = te.id
+		<if test="prrStatus!=null and prrStatus!=''">
+			and tes.prr_status = #{prrStatus}
+		</if>
+		<if test="country != null and country != '' ">
+			and te.country = #{country}
+		</if>
+		<if test="id != null and id != '' ">
+			and te.id = "%"#{id}"%"
+		</if>
+		ORDER BY te.create_time,te.equipment_no  desc 
+	</select>
+
+	<select id="monitorEquipmentList6" parameterType="HashMap"
+		resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes ,tb_equipment te where
+		tes.maintain_status != '0' and tes.id = te.id
+		<if test="maintainStatus!=null and maintainStatus!=''">
+			and tes.maintain_status = #{maintainStatus}
+		</if>
+		<if test="country != null and country != '' ">
+			and te.country = #{country}
+		</if>
+		<if test="id != null and id != '' ">
+			and te.id = "%"#{id}"%"
+		</if>
+
+		ORDER BY te.create_time,te.equipment_no  desc 
+	</select>
+
+	<select id="findByIdleEquipment" parameterType="Map" resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes,tb_equipment te where
+		tes.running_status = "2"
+		<if test="country != null and country != '' ">
+			and te.country = #{country}
+		</if>
+		<if test="id != null and id != '' ">
+			and tes.id like "%"#{id}"%"
+		</if>
+		and tes.id = te.id
+		ORDER BY te.create_time desc,te.equipment_no  desc 
+	</select>
+
+	<select id="findByNotActive" parameterType="Map" resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes,tb_equipment te where
+		tes.running_status = "1"
+		<if test="country != null and country != '' ">
+			and te.country = #{country}
+		</if>
+		<if test="id != null and id != '' ">
+			and tes.id like "%"#{id}"%"
+		</if>
+		and tes.id = te.id
+		order by te.create_time desc,te.equipment_no desc
+	</select>
+
+	<select id="findByNormalEquiment" parameterType="Map" resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes ,tb_equipment te where
+		tes.running_status = "0"
+		<if test="country != null and country != '' ">
+			and te.country = #{country}
+		</if>
+
+		<if test="id != null and id != '' ">
+			and tes.id like "%"#{id}"%"
+		</if>
+		and tes.id = te.id
+		ORDER BY te.create_time,te.equipment_no  desc 
+	</select>
+
+	<select id="findByAbnormal" parameterType="Map" resultMap="BaseResultMap">
+		select tes.* from tb_equipment_status tes,tb_equipment te where
+		tes.running_status = "3"
+		<if test="country != null and country != '' ">
+			and te.country = #{country}
+		</if>
+		<if test="id != null and id != '' ">
+			and tes.id like "%"#{id}"%"
+		</if>
+		and tes.id = te.id
+		ORDER BY te.create_time,te.equipment_no  desc 
+	</select>
+
+	<select id="test" parameterType="Map" resultMap="BaseResultMap">
+		select tes.* from tb_equipment te ,tb_equipment_status tes where
+		tes.id = te.id
+		<if test="country != null and country != ''">
+			and te.country = #{country}
+		</if>
+
+		<if test="id != null and id != ''">
+			and te.id = "%"#{id}"%"
+		</if>
+		
+		<if test="ranningStatus != null and ranningStatus != ''">
+			and tes.ranning_status = #{ranningStatus}
+		</if>
+		
+		<if test="type != null and ranningStatus != '' and type = '0'">
+			and tes.trans_status != '0' and tes.trans_status != '4' and tes.trans_status != '9' 
+		</if>
+		
+		<if test="type != null and type != '' and type = '1'">
+			and tes.connect_status != '0' and tes.connect_status != '9'
+		</if>
+		
+		<if test="type != null and type != '' and type = '3' ">
+			and tes.banknote_box_status = !='0' and tes.banknote_box_status = !='5' and tes.banknote_box_status = !='9' 
+		</if>
+		
+		<if test="type != null and type != '' and type = '4' ">
+			and tes.network_status = '0' and tes.network_status = '4' and tes.network_status = '9'
+		</if>
+		
+		<if test="type != null and type != '' and type = '5' ">
+			and tes.prr_status = '0' and tes.prr_status = '4' and tes.prr_status = '9'
+		</if>
+		ORDER BY te.create_time,te.equipment_no  desc 
+	</select>
+	
+	<select id = "findEquipmentStatus" resultMap = "BaseResultMap">
+		select running_status runningStatus from tb_equipment_status
+		ORDER BY te.create_time,te.equipment_no  desc 
+	</select>
+
+</mapper>

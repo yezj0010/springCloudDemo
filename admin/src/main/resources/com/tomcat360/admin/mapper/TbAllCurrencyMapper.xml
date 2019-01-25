@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tomcat360.admin.mapper.TbAllCurrencyMapper">
+	<resultMap id="BaseResultMap" type="com.tomcat360.admin.model.TbAllCurrency">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="all_currency_cn" property="allCurrencyCn"
+			jdbcType="VARCHAR" />
+		<result column="all_currency_en" property="allCurrencyEn"
+			jdbcType="VARCHAR" />
+		<result column="currency_code" property="currencyCode"
+			jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, all_currency_cn, all_currency_en, currency_code, create_time
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.tomcat360.admin.model.TbAllCurrencyExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from tb_all_currency
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tb_all_currency
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tb_all_currency
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.tomcat360.admin.model.TbAllCurrencyExample">
+		delete from tb_all_currency
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.tomcat360.admin.model.TbAllCurrency">
+		insert into tb_all_currency (id, all_currency_cn, all_currency_en,
+		currency_code, create_time)
+		values (#{id,jdbcType=BIGINT}, #{allCurrencyCn,jdbcType=VARCHAR},
+		#{allCurrencyEn,jdbcType=VARCHAR},
+		#{currencyCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.tomcat360.admin.model.TbAllCurrency">
+		insert into tb_all_currency
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="allCurrencyCn != null">
+				all_currency_cn,
+			</if>
+			<if test="allCurrencyEn != null">
+				all_currency_en,
+			</if>
+			<if test="currencyCode != null">
+				currency_code,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="allCurrencyCn != null">
+				#{allCurrencyCn,jdbcType=VARCHAR},
+			</if>
+			<if test="allCurrencyEn != null">
+				#{allCurrencyEn,jdbcType=VARCHAR},
+			</if>
+			<if test="currencyCode != null">
+				#{currencyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.tomcat360.admin.model.TbAllCurrencyExample"
+		resultType="java.lang.Integer">
+		select count(*) from tb_all_currency
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update tb_all_currency
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.allCurrencyCn != null">
+				all_currency_cn = #{record.allCurrencyCn,jdbcType=VARCHAR},
+			</if>
+			<if test="record.allCurrencyEn != null">
+				all_currency_en = #{record.allCurrencyEn,jdbcType=VARCHAR},
+			</if>
+			<if test="record.currencyCode != null">
+				currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createTime != null">
+				create_time = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update tb_all_currency
+		set id = #{record.id,jdbcType=BIGINT},
+		all_currency_cn = #{record.allCurrencyCn,jdbcType=VARCHAR},
+		all_currency_en = #{record.allCurrencyEn,jdbcType=VARCHAR},
+		currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+		create_time = #{record.createTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tomcat360.admin.model.TbAllCurrency">
+		update tb_all_currency
+		<set>
+			<if test="allCurrencyCn != null">
+				all_currency_cn = #{allCurrencyCn,jdbcType=VARCHAR},
+			</if>
+			<if test="allCurrencyEn != null">
+				all_currency_en = #{allCurrencyEn,jdbcType=VARCHAR},
+			</if>
+			<if test="currencyCode != null">
+				currency_code = #{currencyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tomcat360.admin.model.TbAllCurrency">
+		update tb_all_currency
+		set all_currency_cn = #{allCurrencyCn,jdbcType=VARCHAR},
+		all_currency_en = #{allCurrencyEn,jdbcType=VARCHAR},
+		currency_code = #{currencyCode,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<!-- extend -->
+	<select id="findAllCurrency" resultType="Map">
+		select id,all_currency_cn allCurrencyCn,all_currency_en
+		allCurrencyEn,currency_code currencyCode,create_time createTime from
+		tb_all_currency
+
+	</select>
+
+
+</mapper>

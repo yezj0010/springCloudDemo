@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: Server-Center #应用名称
+    
+server:
+  port: 2001   #当前服务端口
+
+eureka:
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    lease-renewal-interval-in-seconds: 2
+  client:
+    register-with-eureka: false #当前服务不需要注册到eureka服务上注册，自身就是eureka服务
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://localhost:${server.port}/eureka/
+
+  #测试禁用自我保护模式，生产不设置此项
+  server:
+    enableSelfPreservation: false
+    eviction-interval-timer-in-ms: 4000

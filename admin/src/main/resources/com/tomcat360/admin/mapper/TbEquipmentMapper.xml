@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tomcat360.admin.mapper.TbEquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.tomcat360.admin.model.TbEquipment" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="equipment_no" property="equipmentNo" jdbcType="BIGINT" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="detail_address" property="detailAddress" jdbcType="VARCHAR" />
+    <result column="online_time" property="onlineTime" jdbcType="TIMESTAMP" />
+    <result column="equipment_status" property="equipmentStatus" jdbcType="CHAR" />
+    <result column="use_status" property="useStatus" jdbcType="CHAR" />
+    <result column="last_trans_time" property="lastTransTime" jdbcType="TIMESTAMP" />
+    <result column="trans_num" property="transNum" jdbcType="INTEGER" />
+    <result column="trans_amount" property="transAmount" jdbcType="DECIMAL" />
+    <result column="verify_status" property="verifyStatus" jdbcType="CHAR" />
+    <result column="second_region" property="secondRegion" jdbcType="VARCHAR" />
+    <result column="third_region" property="thirdRegion" jdbcType="VARCHAR" />
+    <result column="fourth_region" property="fourthRegion" jdbcType="VARCHAR" />
+    <result column="country_id" property="countryId" jdbcType="BIGINT" />
+    <result column="second_region_id" property="secondRegionId" jdbcType="BIGINT" />
+    <result column="third_region_id" property="thirdRegionId" jdbcType="BIGINT" />
+    <result column="fourth_region_id" property="fourthRegionId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="down_time" property="downTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, equipment_no, country, detail_address, online_time, equipment_status, use_status, 
+    last_trans_time, trans_num, trans_amount, verify_status, second_region, third_region, 
+    fourth_region, country_id, second_region_id, third_region_id, fourth_region_id, create_time, 
+    down_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tomcat360.admin.model.TbEquipmentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_equipment
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_equipment
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tomcat360.admin.model.TbEquipmentExample" >
+    delete from tb_equipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tomcat360.admin.model.TbEquipment" >
+    insert into tb_equipment (id, equipment_no, country, 
+      detail_address, online_time, equipment_status, 
+      use_status, last_trans_time, trans_num, 
+      trans_amount, verify_status, second_region, 
+      third_region, fourth_region, country_id, 
+      second_region_id, third_region_id, fourth_region_id, 
+      create_time, down_time)
+    values (#{id,jdbcType=VARCHAR}, #{equipmentNo,jdbcType=BIGINT}, #{country,jdbcType=VARCHAR}, 
+      #{detailAddress,jdbcType=VARCHAR}, #{onlineTime,jdbcType=TIMESTAMP}, #{equipmentStatus,jdbcType=CHAR}, 
+      #{useStatus,jdbcType=CHAR}, #{lastTransTime,jdbcType=TIMESTAMP}, #{transNum,jdbcType=INTEGER}, 
+      #{transAmount,jdbcType=DECIMAL}, #{verifyStatus,jdbcType=CHAR}, #{secondRegion,jdbcType=VARCHAR}, 
+      #{thirdRegion,jdbcType=VARCHAR}, #{fourthRegion,jdbcType=VARCHAR}, #{countryId,jdbcType=BIGINT}, 
+      #{secondRegionId,jdbcType=BIGINT}, #{thirdRegionId,jdbcType=BIGINT}, #{fourthRegionId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{downTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tomcat360.admin.model.TbEquipment" >
+    insert into tb_equipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="equipmentNo != null" >
+        equipment_no,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="detailAddress != null" >
+        detail_address,
+      </if>
+      <if test="onlineTime != null" >
+        online_time,
+      </if>
+      <if test="equipmentStatus != null" >
+        equipment_status,
+      </if>
+      <if test="useStatus != null" >
+        use_status,
+      </if>
+      <if test="lastTransTime != null" >
+        last_trans_time,
+      </if>
+      <if test="transNum != null" >
+        trans_num,
+      </if>
+      <if test="transAmount != null" >
+        trans_amount,
+      </if>
+      <if test="verifyStatus != null" >
+        verify_status,
+      </if>
+      <if test="secondRegion != null" >
+        second_region,
+      </if>
+      <if test="thirdRegion != null" >
+        third_region,
+      </if>
+      <if test="fourthRegion != null" >
+        fourth_region,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="secondRegionId != null" >
+        second_region_id,
+      </if>
+      <if test="thirdRegionId != null" >
+        third_region_id,
+      </if>
+      <if test="fourthRegionId != null" >
+        fourth_region_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="downTime != null" >
+        down_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentNo != null" >
+        #{equipmentNo,jdbcType=BIGINT},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null" >
+        #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTime != null" >
+        #{onlineTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentStatus != null" >
+        #{equipmentStatus,jdbcType=CHAR},
+      </if>
+      <if test="useStatus != null" >
+        #{useStatus,jdbcType=CHAR},
+      </if>
+      <if test="lastTransTime != null" >
+        #{lastTransTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transNum != null" >
+        #{transNum,jdbcType=INTEGER},
+      </if>
+      <if test="transAmount != null" >
+        #{transAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="verifyStatus != null" >
+        #{verifyStatus,jdbcType=CHAR},
+      </if>
+      <if test="secondRegion != null" >
+        #{secondRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdRegion != null" >
+        #{thirdRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="fourthRegion != null" >
+        #{fourthRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=BIGINT},
+      </if>
+      <if test="secondRegionId != null" >
+        #{secondRegionId,jdbcType=BIGINT},
+      </if>
+      <if test="thirdRegionId != null" >
+        #{thirdRegionId,jdbcType=BIGINT},
+      </if>
+      <if test="fourthRegionId != null" >
+        #{fourthRegionId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downTime != null" >
+        #{downTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tomcat360.admin.model.TbEquipmentExample" resultType="java.lang.Integer" >
+    select count(*) from tb_equipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_equipment
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentNo != null" >
+        equipment_no = #{record.equipmentNo,jdbcType=BIGINT},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailAddress != null" >
+        detail_address = #{record.detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onlineTime != null" >
+        online_time = #{record.onlineTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.equipmentStatus != null" >
+        equipment_status = #{record.equipmentStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.useStatus != null" >
+        use_status = #{record.useStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.lastTransTime != null" >
+        last_trans_time = #{record.lastTransTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.transNum != null" >
+        trans_num = #{record.transNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.transAmount != null" >
+        trans_amount = #{record.transAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.verifyStatus != null" >
+        verify_status = #{record.verifyStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.secondRegion != null" >
+        second_region = #{record.secondRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thirdRegion != null" >
+        third_region = #{record.thirdRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fourthRegion != null" >
+        fourth_region = #{record.fourthRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryId != null" >
+        country_id = #{record.countryId,jdbcType=BIGINT},
+      </if>
+      <if test="record.secondRegionId != null" >
+        second_region_id = #{record.secondRegionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.thirdRegionId != null" >
+        third_region_id = #{record.thirdRegionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fourthRegionId != null" >
+        fourth_region_id = #{record.fourthRegionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.downTime != null" >
+        down_time = #{record.downTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_equipment
+    set id = #{record.id,jdbcType=VARCHAR},
+      equipment_no = #{record.equipmentNo,jdbcType=BIGINT},
+      country = #{record.country,jdbcType=VARCHAR},
+      detail_address = #{record.detailAddress,jdbcType=VARCHAR},
+      online_time = #{record.onlineTime,jdbcType=TIMESTAMP},
+      equipment_status = #{record.equipmentStatus,jdbcType=CHAR},
+      use_status = #{record.useStatus,jdbcType=CHAR},
+      last_trans_time = #{record.lastTransTime,jdbcType=TIMESTAMP},
+      trans_num = #{record.transNum,jdbcType=INTEGER},
+      trans_amount = #{record.transAmount,jdbcType=DECIMAL},
+      verify_status = #{record.verifyStatus,jdbcType=CHAR},
+      second_region = #{record.secondRegion,jdbcType=VARCHAR},
+      third_region = #{record.thirdRegion,jdbcType=VARCHAR},
+      fourth_region = #{record.fourthRegion,jdbcType=VARCHAR},
+      country_id = #{record.countryId,jdbcType=BIGINT},
+      second_region_id = #{record.secondRegionId,jdbcType=BIGINT},
+      third_region_id = #{record.thirdRegionId,jdbcType=BIGINT},
+      fourth_region_id = #{record.fourthRegionId,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      down_time = #{record.downTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tomcat360.admin.model.TbEquipment" >
+    update tb_equipment
+    <set >
+      <if test="equipmentNo != null" >
+        equipment_no = #{equipmentNo,jdbcType=BIGINT},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null" >
+        detail_address = #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTime != null" >
+        online_time = #{onlineTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentStatus != null" >
+        equipment_status = #{equipmentStatus,jdbcType=CHAR},
+      </if>
+      <if test="useStatus != null" >
+        use_status = #{useStatus,jdbcType=CHAR},
+      </if>
+      <if test="lastTransTime != null" >
+        last_trans_time = #{lastTransTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transNum != null" >
+        trans_num = #{transNum,jdbcType=INTEGER},
+      </if>
+      <if test="transAmount != null" >
+        trans_amount = #{transAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="verifyStatus != null" >
+        verify_status = #{verifyStatus,jdbcType=CHAR},
+      </if>
+      <if test="secondRegion != null" >
+        second_region = #{secondRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdRegion != null" >
+        third_region = #{thirdRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="fourthRegion != null" >
+        fourth_region = #{fourthRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=BIGINT},
+      </if>
+      <if test="secondRegionId != null" >
+        second_region_id = #{secondRegionId,jdbcType=BIGINT},
+      </if>
+      <if test="thirdRegionId != null" >
+        third_region_id = #{thirdRegionId,jdbcType=BIGINT},
+      </if>
+      <if test="fourthRegionId != null" >
+        fourth_region_id = #{fourthRegionId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downTime != null" >
+        down_time = #{downTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tomcat360.admin.model.TbEquipment" >
+    update tb_equipment
+    set equipment_no = #{equipmentNo,jdbcType=BIGINT},
+      country = #{country,jdbcType=VARCHAR},
+      detail_address = #{detailAddress,jdbcType=VARCHAR},
+      online_time = #{onlineTime,jdbcType=TIMESTAMP},
+      equipment_status = #{equipmentStatus,jdbcType=CHAR},
+      use_status = #{useStatus,jdbcType=CHAR},
+      last_trans_time = #{lastTransTime,jdbcType=TIMESTAMP},
+      trans_num = #{transNum,jdbcType=INTEGER},
+      trans_amount = #{transAmount,jdbcType=DECIMAL},
+      verify_status = #{verifyStatus,jdbcType=CHAR},
+      second_region = #{secondRegion,jdbcType=VARCHAR},
+      third_region = #{thirdRegion,jdbcType=VARCHAR},
+      fourth_region = #{fourthRegion,jdbcType=VARCHAR},
+      country_id = #{countryId,jdbcType=BIGINT},
+      second_region_id = #{secondRegionId,jdbcType=BIGINT},
+      third_region_id = #{thirdRegionId,jdbcType=BIGINT},
+      fourth_region_id = #{fourthRegionId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      down_time = #{downTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  	<!-- extend -->
+
+	<select id="equipmentVrsionList" resultType="HashMap">
+		select te.id
+		id,tes.pre_ip preIp , te.country country,te.detail_address
+		detailAddress ,tes.equipment_version equipmentVersion ,
+		tes.soft_version softVersion,test.running_status runningStatus from tb_equipment te,
+		tb_equipment_settings tes,tb_equipment_status test where tes.id = te.id and test.id = tes.id
+	</select>
+
+	<select id="equipmentAreaNum" resultType="HashMap"
+		parameterType="String">
+
+		select count(1) "monitorNum",
+
+		sum(case when tes.trans_status !=
+		'0' and tes.trans_status != '9' then
+		1 else 0 end) "voucherPaperNum",
+	
+		sum(case when tes.module_status !=
+		'0' and tes.module_status != '9'
+		then 1 else 0 end) "doorNum",
+	
+		sum(case when
+		tes.banknote_box_status != '0' and tes.banknote_box_status != '9' 
+		then 1 else 0 end) "banknoteBoxNum",
+	
+		sum(case when
+		tes.network_status != '0' and tes.network_status != '9'
+		then 1 else 0 end) "drawMoneyNum",
+	
+		sum(case when tes.prr_status != '0' and tes.prr_status != '9'
+		then 1 else 0 end) "printNum" ,
+	
+		sum(case when
+		tes.trans_status = '0' and tes.running_status = '0' and
+		tes.module_status = '0' and tes.banknote_box_status = '0' and
+		tes.network_status = '0' and tes.prr_status = '0' and tes.maintain_status = '0' and tes.connect_status = '0'
+		then 1 else 0 end) "normalEquipment1",
+		
+		sum(case when tes.maintain_status != '0'
+		then 1 else 0 end) "maintainNum" ,
+	
+		sum(case when tes.connect_status != '0' and tes.connect_status != '9'
+		then 1 else 0 end) "connectNum",
+		
+		sum(case when tes.running_status = '0'
+		then 1 else 0 end) "normalEquipment",
+
+		sum(case when tes.running_status = '1'
+		then 1 else 0 end) "notActiveNum",
+
+		sum(case when tes.running_status = '2'
+		then 1 else 0 end) "idleNum",
+
+		sum(case when tes.running_status = '3'
+		then 1 else 0 end) "abnormalNum"
+
+		from tb_equipment te ,tb_equipment_status tes where
+	
+		te.id = tes.id
+		
+		<if test="_parameter != null and _parameter != '' ">
+			and te.country = #{_parameter}
+		</if>
+
+	</select>
+
+	<select id="updateId" parameterType="HashMap">
+		update tb_equipment set id =
+		#{generatId} where id = #{id};
+	</select>
+
+	<select id = "findAll" parameterType="Map" resultType="Map">
+		select id,country,detail_address detailAddress from tb_equipment
+		<where>
+			<if test=" countryId !=null and countryId != ''">
+				and country_id = #{countryId}
+			</if>
+			
+			<if test=" id !=null and id != ''">
+				and id LIKE '%${id}%'
+			</if>
+		</where>
+		
+	</select>
+
+	<select id="findAllByEquipmentIds" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select e.id, a.area_name country, es.brand, es.equipment_version equipmentVersion, es.pre_ip ip,
+		e.detail_address address, es.equipment_type equipmentType,
+		esu.running_status status, es.soft_version softVersion, e.last_trans_time versionUpdateTime
+		from tb_equipment e
+		left join tb_equipment_settings es on es.id = e.id
+		left join tb_equipment_status esu on esu.id = e.id
+        left join tb_area a on a.id = e.country_id
+		<where>
+			e.id in
+				<foreach collection="termNoList" item="listItem"
+						 open="(" close=")" separator=",">
+					#{listItem}
+				</foreach>
+
+			<if test="country !=null and country != ''">
+				and e.country = #{country}
+			</if>
+
+			<if test="brand !=null and brand != ''">
+				and es.brand = #{brand}
+			</if>
+
+			<if test="equipmentVersion !=null and equipmentVersion != ''">
+				and es.equipment_version = #{equipmentVersion}
+			</if>
+
+			<if test="equipmentId !=null and equipmentId != ''">
+				and e.id like '%${equipmentId}%'
+			</if>
+
+			<if test="status !=null and status != ''">
+				and esu.running_status = #{status}
+			</if>
+
+			<if test="softVersion !=null and softVersion != ''">
+				and es.soft_version = #{softVersion}
+			</if>
+
+		</where>
+
+	</select>
+
+    <select id="getAllEquipmentLocation" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+      select tes.id,tes.longitude,tes.latitude,tes.equipment_sub_type currency from tb_equipment_settings tes
+      left join tb_equipment_status est on tes.id = est.id
+      where est.running_status != '1' and est.running_status != '2'
+      <if test="types != null and types.size()>0">
+        and tes.equipment_type in(
+        <foreach item="item" index="index" collection="types" separator=",">
+          #{item}
+        </foreach>
+        )
+      </if>
+
+      <if test="drawCurrencys != null and drawCurrencys.size()>0">
+        and tes.equipment_sub_type in(
+        <foreach item="item" index="index" collection="drawCurrencys" separator=",">
+          #{item}
+        </foreach>
+        )
+      </if>
+
+    </select>
+
+</mapper>

@@ -1,0 +1,58 @@
+server:
+  port: 6601
+
+spring:
+  application:
+    name: timer #应用名称
+# 数据库连接配置
+  datasource:
+      url: jdbc:mysql://192.168.3.130:3306/hayekatm?characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+      test-while-idle: true #验证连接的有效性,很重要
+      test-on-borrow: false #获取连接时候验证，会影响性能
+      test-on-return: false #在连接归还到连接池时是否测试该连接
+      validation-query: SELECT 1 FROM DUAL #测试语句
+      time-between-eviction-runs-millis: 60000 #空闲连接回收的时间间隔，与test-while-idle一起使用，设置1分钟
+      min-evictable-idle-time-millis: 300000 #连接池空闲连接的有效时间 ，设置5分钟
+      initial-size: 5 #指定启动连接池时，初始建立的连接数量
+      max-active: 1000 #指定连接池中最大的活跃连接数.
+      max-wait: 60000 #指定连接池等待连接返回的最大等待时间，毫秒单位.
+      min-idle: 10 #指定必须保持连接的最小值
+  jpa:
+    database: mysql
+    show-sql: true
+    generate-ddl: false
+    
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000  #Feign超时时间
+
+
+#服务注册与发现
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:2001/eureka/  #Eureka Server
+
+  #服务注册时，在Eureka的实例配置
+  #metadata-map.cluster：指定服务集群名称（一个服务集群包括多个app）
+  instance:
+    preferIpAddress: true
+    statusPageUrlPath: /info
+    metadata-map:
+      cluster: main 
+
+#自定义参数
+appConfig:
+  appName: atmTimer
+  appNameCn: 定时任务子系统

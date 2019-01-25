@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tomcat360.atm.mapper.TbWithdrawCurrencyMapper" >
+  <resultMap id="BaseResultMap" type="com.tomcat360.atm.model.TbWithdrawCurrency" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="withdraw_money1" property="withdrawMoney1" jdbcType="INTEGER" />
+    <result column="withdraw_money2" property="withdrawMoney2" jdbcType="INTEGER" />
+    <result column="withdraw_money3" property="withdrawMoney3" jdbcType="INTEGER" />
+    <result column="withdraw_money4" property="withdrawMoney4" jdbcType="INTEGER" />
+    <result column="withdraw_money5" property="withdrawMoney5" jdbcType="INTEGER" />
+    <result column="withdraw_money6" property="withdrawMoney6" jdbcType="INTEGER" />
+    <result column="currency_name" property="currencyName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="desc_cny" property="descCny" jdbcType="VARCHAR" />
+    <result column="desc_en" property="descEn" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, withdraw_money1, withdraw_money2, withdraw_money3, withdraw_money4, withdraw_money5, 
+    withdraw_money6, currency_name, status, desc_cny, desc_en, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tomcat360.atm.model.TbWithdrawCurrencyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_withdraw_currency
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_withdraw_currency
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_withdraw_currency
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tomcat360.atm.model.TbWithdrawCurrencyExample" >
+    delete from tb_withdraw_currency
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tomcat360.atm.model.TbWithdrawCurrency" >
+    insert into tb_withdraw_currency (id, withdraw_money1, withdraw_money2, 
+      withdraw_money3, withdraw_money4, withdraw_money5, 
+      withdraw_money6, currency_name, status, 
+      desc_cny, desc_en, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{withdrawMoney1,jdbcType=INTEGER}, #{withdrawMoney2,jdbcType=INTEGER}, 
+      #{withdrawMoney3,jdbcType=INTEGER}, #{withdrawMoney4,jdbcType=INTEGER}, #{withdrawMoney5,jdbcType=INTEGER}, 
+      #{withdrawMoney6,jdbcType=INTEGER}, #{currencyName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{descCny,jdbcType=VARCHAR}, #{descEn,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tomcat360.atm.model.TbWithdrawCurrency" >
+    insert into tb_withdraw_currency
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="withdrawMoney1 != null" >
+        withdraw_money1,
+      </if>
+      <if test="withdrawMoney2 != null" >
+        withdraw_money2,
+      </if>
+      <if test="withdrawMoney3 != null" >
+        withdraw_money3,
+      </if>
+      <if test="withdrawMoney4 != null" >
+        withdraw_money4,
+      </if>
+      <if test="withdrawMoney5 != null" >
+        withdraw_money5,
+      </if>
+      <if test="withdrawMoney6 != null" >
+        withdraw_money6,
+      </if>
+      <if test="currencyName != null" >
+        currency_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="descCny != null" >
+        desc_cny,
+      </if>
+      <if test="descEn != null" >
+        desc_en,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawMoney1 != null" >
+        #{withdrawMoney1,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawMoney2 != null" >
+        #{withdrawMoney2,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawMoney3 != null" >
+        #{withdrawMoney3,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawMoney4 != null" >
+        #{withdrawMoney4,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawMoney5 != null" >
+        #{withdrawMoney5,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawMoney6 != null" >
+        #{withdrawMoney6,jdbcType=INTEGER},
+      </if>
+      <if test="currencyName != null" >
+        #{currencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="descCny != null" >
+        #{descCny,jdbcType=VARCHAR},
+      </if>
+      <if test="descEn != null" >
+        #{descEn,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tomcat360.atm.model.TbWithdrawCurrencyExample" resultType="java.lang.Integer" >
+    select count(*) from tb_withdraw_currency
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_withdraw_currency
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.withdrawMoney1 != null" >
+        withdraw_money1 = #{record.withdrawMoney1,jdbcType=INTEGER},
+      </if>
+      <if test="record.withdrawMoney2 != null" >
+        withdraw_money2 = #{record.withdrawMoney2,jdbcType=INTEGER},
+      </if>
+      <if test="record.withdrawMoney3 != null" >
+        withdraw_money3 = #{record.withdrawMoney3,jdbcType=INTEGER},
+      </if>
+      <if test="record.withdrawMoney4 != null" >
+        withdraw_money4 = #{record.withdrawMoney4,jdbcType=INTEGER},
+      </if>
+      <if test="record.withdrawMoney5 != null" >
+        withdraw_money5 = #{record.withdrawMoney5,jdbcType=INTEGER},
+      </if>
+      <if test="record.withdrawMoney6 != null" >
+        withdraw_money6 = #{record.withdrawMoney6,jdbcType=INTEGER},
+      </if>
+      <if test="record.currencyName != null" >
+        currency_name = #{record.currencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.descCny != null" >
+        desc_cny = #{record.descCny,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descEn != null" >
+        desc_en = #{record.descEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_withdraw_currency
+    set id = #{record.id,jdbcType=BIGINT},
+      withdraw_money1 = #{record.withdrawMoney1,jdbcType=INTEGER},
+      withdraw_money2 = #{record.withdrawMoney2,jdbcType=INTEGER},
+      withdraw_money3 = #{record.withdrawMoney3,jdbcType=INTEGER},
+      withdraw_money4 = #{record.withdrawMoney4,jdbcType=INTEGER},
+      withdraw_money5 = #{record.withdrawMoney5,jdbcType=INTEGER},
+      withdraw_money6 = #{record.withdrawMoney6,jdbcType=INTEGER},
+      currency_name = #{record.currencyName,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=CHAR},
+      desc_cny = #{record.descCny,jdbcType=VARCHAR},
+      desc_en = #{record.descEn,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tomcat360.atm.model.TbWithdrawCurrency" >
+    update tb_withdraw_currency
+    <set >
+      <if test="withdrawMoney1 != null" >
+        withdraw_money1 = #{withdrawMoney1,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawMoney2 != null" >
+        withdraw_money2 = #{withdrawMoney2,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawMoney3 != null" >
+        withdraw_money3 = #{withdrawMoney3,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawMoney4 != null" >
+        withdraw_money4 = #{withdrawMoney4,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawMoney5 != null" >
+        withdraw_money5 = #{withdrawMoney5,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawMoney6 != null" >
+        withdraw_money6 = #{withdrawMoney6,jdbcType=INTEGER},
+      </if>
+      <if test="currencyName != null" >
+        currency_name = #{currencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="descCny != null" >
+        desc_cny = #{descCny,jdbcType=VARCHAR},
+      </if>
+      <if test="descEn != null" >
+        desc_en = #{descEn,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tomcat360.atm.model.TbWithdrawCurrency" >
+    update tb_withdraw_currency
+    set withdraw_money1 = #{withdrawMoney1,jdbcType=INTEGER},
+      withdraw_money2 = #{withdrawMoney2,jdbcType=INTEGER},
+      withdraw_money3 = #{withdrawMoney3,jdbcType=INTEGER},
+      withdraw_money4 = #{withdrawMoney4,jdbcType=INTEGER},
+      withdraw_money5 = #{withdrawMoney5,jdbcType=INTEGER},
+      withdraw_money6 = #{withdrawMoney6,jdbcType=INTEGER},
+      currency_name = #{currencyName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      desc_cny = #{descCny,jdbcType=VARCHAR},
+      desc_en = #{descEn,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

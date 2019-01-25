@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tomcat360.admin.mapper.TbMerchantAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.tomcat360.admin.model.TbMerchantAccount" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="merchant_no" property="merchantNo" jdbcType="VARCHAR" />
+    <result column="account_adress" property="accountAdress" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="total_withdrawal" property="totalWithdrawal" jdbcType="DECIMAL" />
+    <result column="total_withdrawal_fee" property="totalWithdrawalFee" jdbcType="DECIMAL" />
+    <result column="total_deposit" property="totalDeposit" jdbcType="DECIMAL" />
+    <result column="total_deposit_fee" property="totalDepositFee" jdbcType="DECIMAL" />
+    <result column="total_charge" property="totalCharge" jdbcType="DECIMAL" />
+    <result column="total_cash_out" property="totalCashOut" jdbcType="DECIMAL" />
+    <result column="total_other_in" property="totalOtherIn" jdbcType="DECIMAL" />
+    <result column="total_other_out" property="totalOtherOut" jdbcType="DECIMAL" />
+    <result column="account_balance" property="accountBalance" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, merchant_no, account_adress, currency, total_withdrawal, total_withdrawal_fee, 
+    total_deposit, total_deposit_fee, total_charge, total_cash_out, total_other_in, total_other_out, 
+    account_balance, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tomcat360.admin.model.TbMerchantAccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_merchant_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_merchant_account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_merchant_account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tomcat360.admin.model.TbMerchantAccountExample" >
+    delete from tb_merchant_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tomcat360.admin.model.TbMerchantAccount" >
+    insert into tb_merchant_account (id, merchant_no, account_adress, 
+      currency, total_withdrawal, total_withdrawal_fee, 
+      total_deposit, total_deposit_fee, total_charge, 
+      total_cash_out, total_other_in, total_other_out, 
+      account_balance, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{merchantNo,jdbcType=VARCHAR}, #{accountAdress,jdbcType=VARCHAR}, 
+      #{currency,jdbcType=VARCHAR}, #{totalWithdrawal,jdbcType=DECIMAL}, #{totalWithdrawalFee,jdbcType=DECIMAL}, 
+      #{totalDeposit,jdbcType=DECIMAL}, #{totalDepositFee,jdbcType=DECIMAL}, #{totalCharge,jdbcType=DECIMAL}, 
+      #{totalCashOut,jdbcType=DECIMAL}, #{totalOtherIn,jdbcType=DECIMAL}, #{totalOtherOut,jdbcType=DECIMAL}, 
+      #{accountBalance,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tomcat360.admin.model.TbMerchantAccount" >
+    insert into tb_merchant_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="merchantNo != null" >
+        merchant_no,
+      </if>
+      <if test="accountAdress != null" >
+        account_adress,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="totalWithdrawal != null" >
+        total_withdrawal,
+      </if>
+      <if test="totalWithdrawalFee != null" >
+        total_withdrawal_fee,
+      </if>
+      <if test="totalDeposit != null" >
+        total_deposit,
+      </if>
+      <if test="totalDepositFee != null" >
+        total_deposit_fee,
+      </if>
+      <if test="totalCharge != null" >
+        total_charge,
+      </if>
+      <if test="totalCashOut != null" >
+        total_cash_out,
+      </if>
+      <if test="totalOtherIn != null" >
+        total_other_in,
+      </if>
+      <if test="totalOtherOut != null" >
+        total_other_out,
+      </if>
+      <if test="accountBalance != null" >
+        account_balance,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantNo != null" >
+        #{merchantNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountAdress != null" >
+        #{accountAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="totalWithdrawal != null" >
+        #{totalWithdrawal,jdbcType=DECIMAL},
+      </if>
+      <if test="totalWithdrawalFee != null" >
+        #{totalWithdrawalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="totalDeposit != null" >
+        #{totalDeposit,jdbcType=DECIMAL},
+      </if>
+      <if test="totalDepositFee != null" >
+        #{totalDepositFee,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCharge != null" >
+        #{totalCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCashOut != null" >
+        #{totalCashOut,jdbcType=DECIMAL},
+      </if>
+      <if test="totalOtherIn != null" >
+        #{totalOtherIn,jdbcType=DECIMAL},
+      </if>
+      <if test="totalOtherOut != null" >
+        #{totalOtherOut,jdbcType=DECIMAL},
+      </if>
+      <if test="accountBalance != null" >
+        #{accountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tomcat360.admin.model.TbMerchantAccountExample" resultType="java.lang.Integer" >
+    select count(*) from tb_merchant_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_merchant_account
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.merchantNo != null" >
+        merchant_no = #{record.merchantNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountAdress != null" >
+        account_adress = #{record.accountAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currency != null" >
+        currency = #{record.currency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalWithdrawal != null" >
+        total_withdrawal = #{record.totalWithdrawal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalWithdrawalFee != null" >
+        total_withdrawal_fee = #{record.totalWithdrawalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalDeposit != null" >
+        total_deposit = #{record.totalDeposit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalDepositFee != null" >
+        total_deposit_fee = #{record.totalDepositFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalCharge != null" >
+        total_charge = #{record.totalCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalCashOut != null" >
+        total_cash_out = #{record.totalCashOut,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalOtherIn != null" >
+        total_other_in = #{record.totalOtherIn,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalOtherOut != null" >
+        total_other_out = #{record.totalOtherOut,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accountBalance != null" >
+        account_balance = #{record.accountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_merchant_account
+    set id = #{record.id,jdbcType=BIGINT},
+      merchant_no = #{record.merchantNo,jdbcType=VARCHAR},
+      account_adress = #{record.accountAdress,jdbcType=VARCHAR},
+      currency = #{record.currency,jdbcType=VARCHAR},
+      total_withdrawal = #{record.totalWithdrawal,jdbcType=DECIMAL},
+      total_withdrawal_fee = #{record.totalWithdrawalFee,jdbcType=DECIMAL},
+      total_deposit = #{record.totalDeposit,jdbcType=DECIMAL},
+      total_deposit_fee = #{record.totalDepositFee,jdbcType=DECIMAL},
+      total_charge = #{record.totalCharge,jdbcType=DECIMAL},
+      total_cash_out = #{record.totalCashOut,jdbcType=DECIMAL},
+      total_other_in = #{record.totalOtherIn,jdbcType=DECIMAL},
+      total_other_out = #{record.totalOtherOut,jdbcType=DECIMAL},
+      account_balance = #{record.accountBalance,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tomcat360.admin.model.TbMerchantAccount" >
+    update tb_merchant_account
+    <set >
+      <if test="merchantNo != null" >
+        merchant_no = #{merchantNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountAdress != null" >
+        account_adress = #{accountAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="totalWithdrawal != null" >
+        total_withdrawal = #{totalWithdrawal,jdbcType=DECIMAL},
+      </if>
+      <if test="totalWithdrawalFee != null" >
+        total_withdrawal_fee = #{totalWithdrawalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="totalDeposit != null" >
+        total_deposit = #{totalDeposit,jdbcType=DECIMAL},
+      </if>
+      <if test="totalDepositFee != null" >
+        total_deposit_fee = #{totalDepositFee,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCharge != null" >
+        total_charge = #{totalCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCashOut != null" >
+        total_cash_out = #{totalCashOut,jdbcType=DECIMAL},
+      </if>
+      <if test="totalOtherIn != null" >
+        total_other_in = #{totalOtherIn,jdbcType=DECIMAL},
+      </if>
+      <if test="totalOtherOut != null" >
+        total_other_out = #{totalOtherOut,jdbcType=DECIMAL},
+      </if>
+      <if test="accountBalance != null" >
+        account_balance = #{accountBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tomcat360.admin.model.TbMerchantAccount" >
+    update tb_merchant_account
+    set merchant_no = #{merchantNo,jdbcType=VARCHAR},
+      account_adress = #{accountAdress,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=VARCHAR},
+      total_withdrawal = #{totalWithdrawal,jdbcType=DECIMAL},
+      total_withdrawal_fee = #{totalWithdrawalFee,jdbcType=DECIMAL},
+      total_deposit = #{totalDeposit,jdbcType=DECIMAL},
+      total_deposit_fee = #{totalDepositFee,jdbcType=DECIMAL},
+      total_charge = #{totalCharge,jdbcType=DECIMAL},
+      total_cash_out = #{totalCashOut,jdbcType=DECIMAL},
+      total_other_in = #{totalOtherIn,jdbcType=DECIMAL},
+      total_other_out = #{totalOtherOut,jdbcType=DECIMAL},
+      account_balance = #{accountBalance,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findAll" resultType="Map">
+    select id,
+    merchant_no merchantNo ,
+    account_adress accountAdress,
+    currency,
+    total_withdrawal totalWithdrawal,
+    total_withdrawal_fee totalWithdrawalFee,
+    total_deposit totalDeposit,
+    total_deposit_fee totalDepositFee,
+    total_charge totalCharge,
+    total_cash_out totalCashOut,
+    total_other_in totalOtherIn,
+    total_other_out totalOtherOut,
+    account_balance accountBalance,
+    create_time createTime,
+    update_time updateTime
+    from tb_merchant_account
+  </select>
+</mapper>

@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: gateway #应用名称
+  http: 
+    multipart: 
+      maxFileSize: 1024Mb
+      maxRequestSize: 1024Mb
+      
+server:
+  port: 2000
+
+zuul:
+  retryable: false # 不允许重试
+  host:
+    max-per-route-connections: 60
+    max-total-connections: 200
+  routes:
+    atm-server:
+      path: /Api-Atm/**
+      serviceId: atm_service
+      sensitiveHeaders: "*"
+    admin-server:
+      path: /Api-Admin/**
+      serviceId: admin_service
+      sensitiveHeaders: "*"
+
+#服务注册与发现
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:2001/eureka/  #Eureka Server
+  #服务注册时，在Eureka的实例配置
+  #metadata-maw.cluster：指定服务集群名称（一个服务集群包括多个app）
+  instance:
+    preferIpAddress: true
+    statusPageUrlPath: /info
+    metadata-map:
+      cluster: main
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 45000  #Feign超时时间:45s
+
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 45000                    #路由api请求超时时间:45s
+
+#自定义参数
+appConfig:
+  appName: atm-service-gateway
+  appNameCn: atm网关服务
+  
+  tokenKey: 180808atm_dev   #Token加解密秘钥
+  tokenDay: 7             #Token有效期，单位：天
+  

@@ -1,0 +1,8 @@
+.svn
+*.iml
+.idea
+.idea/workspace.xml
+target
+logs
+.project
+.settings/

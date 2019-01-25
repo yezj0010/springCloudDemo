@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tomcat360.admin.mapper.TbTransMapper">
+	<resultMap id="BaseResultMap" type="com.tomcat360.admin.model.TbTrans">
+		<id column="id" property="id" jdbcType="CHAR" />
+		<result column="equipment_id" property="equipmentId" jdbcType="VARCHAR" />
+		<result column="equipment_log_seq" property="equipmentLogSeq"
+			jdbcType="VARCHAR" />
+		<result column="ori_id" property="oriId" jdbcType="CHAR" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="user_token" property="userToken" jdbcType="VARCHAR" />
+		<result column="user_local_token" property="userLocalToken"
+			jdbcType="VARCHAR" />
+		<result column="interface_code" property="interfaceCode"
+			jdbcType="VARCHAR" />
+		<result column="interface_type" property="interfaceType"
+			jdbcType="CHAR" />
+		<result column="deduct_currency" property="deductCurrency"
+			jdbcType="VARCHAR" />
+		<result column="withdraw_currency" property="withdrawCurrency"
+			jdbcType="VARCHAR" />
+		<result column="withdraw_money" property="withdrawMoney"
+			jdbcType="DECIMAL" />
+		<result column="status" property="status" jdbcType="CHAR" />
+		<result column="resp_code" property="respCode" jdbcType="VARCHAR" />
+		<result column="resp_msg" property="respMsg" jdbcType="VARCHAR" />
+		<result column="trans_time" property="transTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="ex_trans_seq" property="exTransSeq" jdbcType="VARCHAR" />
+		<result column="ex_trans_time" property="exTransTime" jdbcType="BIGINT" />
+		<result column="term_date" property="termDate" jdbcType="TIMESTAMP" />
+		<result column="trans_fee" property="transFee" jdbcType="DECIMAL" />
+		<result column="deduct_money" property="deductMoney" jdbcType="DECIMAL" />
+		<result column="ex_check_status" property="exCheckStatus"
+			jdbcType="CHAR" />
+		<result column="c_check_status" property="cCheckStatus"
+			jdbcType="CHAR" />
+		<result column="price" property="price" jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, equipment_id, equipment_log_seq, ori_id, user_id,
+		user_token,
+		user_local_token,
+		interface_code, interface_type,
+		deduct_currency, withdraw_currency, withdraw_money,
+		status, resp_code,
+		resp_msg, trans_time, update_time, ex_trans_seq,
+		ex_trans_time,
+		term_date, trans_fee, deduct_money, ex_check_status, c_check_status,
+		price
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.tomcat360.admin.model.TbTransExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from tb_trans
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_trans
+		where id = #{id,jdbcType=CHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		tb_trans
+		where id = #{id,jdbcType=CHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.tomcat360.admin.model.TbTransExample">
+		delete from tb_trans
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.tomcat360.admin.model.TbTrans">
+		insert into tb_trans (id,
+		equipment_id, equipment_log_seq,
+		ori_id, user_id, user_token,
+		user_local_token, interface_code, interface_type,
+		deduct_currency,
+		withdraw_currency, withdraw_money,
+		status, resp_code, resp_msg,
+		trans_time, update_time, ex_trans_seq,
+		ex_trans_time, term_date,
+		trans_fee,
+		deduct_money, ex_check_status, c_check_status,
+		price)
+		values
+		(#{id,jdbcType=CHAR}, #{equipmentId,jdbcType=VARCHAR},
+		#{equipmentLogSeq,jdbcType=VARCHAR},
+		#{oriId,jdbcType=CHAR},
+		#{userId,jdbcType=BIGINT}, #{userToken,jdbcType=VARCHAR},
+		#{userLocalToken,jdbcType=VARCHAR}, #{interfaceCode,jdbcType=VARCHAR},
+		#{interfaceType,jdbcType=CHAR},
+		#{deductCurrency,jdbcType=VARCHAR},
+		#{withdrawCurrency,jdbcType=VARCHAR},
+		#{withdrawMoney,jdbcType=DECIMAL},
+		#{status,jdbcType=CHAR},
+		#{respCode,jdbcType=VARCHAR}, #{respMsg,jdbcType=VARCHAR},
+		#{transTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{exTransSeq,jdbcType=VARCHAR},
+		#{exTransTime,jdbcType=BIGINT},
+		#{termDate,jdbcType=TIMESTAMP}, #{transFee,jdbcType=DECIMAL},
+		#{deductMoney,jdbcType=DECIMAL}, #{exCheckStatus,jdbcType=CHAR},
+		#{cCheckStatus,jdbcType=CHAR},
+		#{price,jdbcType=DECIMAL})
+	</insert>
+	<insert id="insertSelective" parameterType="com.tomcat360.admin.model.TbTrans">
+		insert into tb_trans
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="equipmentId != null">
+				equipment_id,
+			</if>
+			<if test="equipmentLogSeq != null">
+				equipment_log_seq,
+			</if>
+			<if test="oriId != null">
+				ori_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userToken != null">
+				user_token,
+			</if>
+			<if test="userLocalToken != null">
+				user_local_token,
+			</if>
+			<if test="interfaceCode != null">
+				interface_code,
+			</if>
+			<if test="interfaceType != null">
+				interface_type,
+			</if>
+			<if test="deductCurrency != null">
+				deduct_currency,
+			</if>
+			<if test="withdrawCurrency != null">
+				withdraw_currency,
+			</if>
+			<if test="withdrawMoney != null">
+				withdraw_money,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="respCode != null">
+				resp_code,
+			</if>
+			<if test="respMsg != null">
+				resp_msg,
+			</if>
+			<if test="transTime != null">
+				trans_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="exTransSeq != null">
+				ex_trans_seq,
+			</if>
+			<if test="exTransTime != null">
+				ex_trans_time,
+			</if>
+			<if test="termDate != null">
+				term_date,
+			</if>
+			<if test="transFee != null">
+				trans_fee,
+			</if>
+			<if test="deductMoney != null">
+				deduct_money,
+			</if>
+			<if test="exCheckStatus != null">
+				ex_check_status,
+			</if>
+			<if test="cCheckStatus != null">
+				c_check_status,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=CHAR},
+			</if>
+			<if test="equipmentId != null">
+				#{equipmentId,jdbcType=VARCHAR},
+			</if>
+			<if test="equipmentLogSeq != null">
+				#{equipmentLogSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="oriId != null">
+				#{oriId,jdbcType=CHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="userToken != null">
+				#{userToken,jdbcType=VARCHAR},
+			</if>
+			<if test="userLocalToken != null">
+				#{userLocalToken,jdbcType=VARCHAR},
+			</if>
+			<if test="interfaceCode != null">
+				#{interfaceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="interfaceType != null">
+				#{interfaceType,jdbcType=CHAR},
+			</if>
+			<if test="deductCurrency != null">
+				#{deductCurrency,jdbcType=VARCHAR},
+			</if>
+			<if test="withdrawCurrency != null">
+				#{withdrawCurrency,jdbcType=VARCHAR},
+			</if>
+			<if test="withdrawMoney != null">
+				#{withdrawMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="respCode != null">
+				#{respCode,jdbcType=VARCHAR},
+			</if>
+			<if test="respMsg != null">
+				#{respMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="transTime != null">
+				#{transTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="exTransSeq != null">
+				#{exTransSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="exTransTime != null">
+				#{exTransTime,jdbcType=BIGINT},
+			</if>
+			<if test="termDate != null">
+				#{termDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="transFee != null">
+				#{transFee,jdbcType=DECIMAL},
+			</if>
+			<if test="deductMoney != null">
+				#{deductMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="exCheckStatus != null">
+				#{exCheckStatus,jdbcType=CHAR},
+			</if>
+			<if test="cCheckStatus != null">
+				#{cCheckStatus,jdbcType=CHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.tomcat360.admin.model.TbTransExample"
+		resultType="java.lang.Integer">
+		select count(*) from tb_trans
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update tb_trans
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=CHAR},
+			</if>
+			<if test="record.equipmentId != null">
+				equipment_id = #{record.equipmentId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.equipmentLogSeq != null">
+				equipment_log_seq =
+				#{record.equipmentLogSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="record.oriId != null">
+				ori_id = #{record.oriId,jdbcType=CHAR},
+			</if>
+			<if test="record.userId != null">
+				user_id = #{record.userId,jdbcType=BIGINT},
+			</if>
+			<if test="record.userToken != null">
+				user_token = #{record.userToken,jdbcType=VARCHAR},
+			</if>
+			<if test="record.userLocalToken != null">
+				user_local_token =
+				#{record.userLocalToken,jdbcType=VARCHAR},
+			</if>
+			<if test="record.interfaceCode != null">
+				interface_code =
+				#{record.interfaceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.interfaceType != null">
+				interface_type = #{record.interfaceType,jdbcType=CHAR},
+			</if>
+			<if test="record.deductCurrency != null">
+				deduct_currency =
+				#{record.deductCurrency,jdbcType=VARCHAR},
+			</if>
+			<if test="record.withdrawCurrency != null">
+				withdraw_currency =
+				#{record.withdrawCurrency,jdbcType=VARCHAR},
+			</if>
+			<if test="record.withdrawMoney != null">
+				withdraw_money =
+				#{record.withdrawMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="record.status != null">
+				status = #{record.status,jdbcType=CHAR},
+			</if>
+			<if test="record.respCode != null">
+				resp_code = #{record.respCode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.respMsg != null">
+				resp_msg = #{record.respMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.transTime != null">
+				trans_time = #{record.transTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.updateTime != null">
+				update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.exTransSeq != null">
+				ex_trans_seq = #{record.exTransSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="record.exTransTime != null">
+				ex_trans_time = #{record.exTransTime,jdbcType=BIGINT},
+			</if>
+			<if test="record.termDate != null">
+				term_date = #{record.termDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.transFee != null">
+				trans_fee = #{record.transFee,jdbcType=DECIMAL},
+			</if>
+			<if test="record.deductMoney != null">
+				deduct_money = #{record.deductMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="record.exCheckStatus != null">
+				ex_check_status = #{record.exCheckStatus,jdbcType=CHAR},
+			</if>
+			<if test="record.cCheckStatus != null">
+				c_check_status = #{record.cCheckStatus,jdbcType=CHAR},
+			</if>
+			<if test="record.price != null">
+				price = #{record.price,jdbcType=DECIMAL},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update tb_trans
+		set id = #{record.id,jdbcType=CHAR},
+		equipment_id =
+		#{record.equipmentId,jdbcType=VARCHAR},
+		equipment_log_seq =
+		#{record.equipmentLogSeq,jdbcType=VARCHAR},
+		ori_id =
+		#{record.oriId,jdbcType=CHAR},
+		user_id =
+		#{record.userId,jdbcType=BIGINT},
+		user_token =
+		#{record.userToken,jdbcType=VARCHAR},
+		user_local_token =
+		#{record.userLocalToken,jdbcType=VARCHAR},
+		interface_code =
+		#{record.interfaceCode,jdbcType=VARCHAR},
+		interface_type =
+		#{record.interfaceType,jdbcType=CHAR},
+		deduct_currency =
+		#{record.deductCurrency,jdbcType=VARCHAR},
+		withdraw_currency =
+		#{record.withdrawCurrency,jdbcType=VARCHAR},
+		withdraw_money =
+		#{record.withdrawMoney,jdbcType=DECIMAL},
+		status =
+		#{record.status,jdbcType=CHAR},
+		resp_code =
+		#{record.respCode,jdbcType=VARCHAR},
+		resp_msg =
+		#{record.respMsg,jdbcType=VARCHAR},
+		trans_time =
+		#{record.transTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{record.updateTime,jdbcType=TIMESTAMP},
+		ex_trans_seq =
+		#{record.exTransSeq,jdbcType=VARCHAR},
+		ex_trans_time =
+		#{record.exTransTime,jdbcType=BIGINT},
+		term_date =
+		#{record.termDate,jdbcType=TIMESTAMP},
+		trans_fee =
+		#{record.transFee,jdbcType=DECIMAL},
+		deduct_money =
+		#{record.deductMoney,jdbcType=DECIMAL},
+		ex_check_status =
+		#{record.exCheckStatus,jdbcType=CHAR},
+		c_check_status =
+		#{record.cCheckStatus,jdbcType=CHAR},
+		price =
+		#{record.price,jdbcType=DECIMAL}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tomcat360.admin.model.TbTrans">
+		update tb_trans
+		<set>
+			<if test="equipmentId != null">
+				equipment_id = #{equipmentId,jdbcType=VARCHAR},
+			</if>
+			<if test="equipmentLogSeq != null">
+				equipment_log_seq = #{equipmentLogSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="oriId != null">
+				ori_id = #{oriId,jdbcType=CHAR},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="userToken != null">
+				user_token = #{userToken,jdbcType=VARCHAR},
+			</if>
+			<if test="userLocalToken != null">
+				user_local_token = #{userLocalToken,jdbcType=VARCHAR},
+			</if>
+			<if test="interfaceCode != null">
+				interface_code = #{interfaceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="interfaceType != null">
+				interface_type = #{interfaceType,jdbcType=CHAR},
+			</if>
+			<if test="deductCurrency != null">
+				deduct_currency = #{deductCurrency,jdbcType=VARCHAR},
+			</if>
+			<if test="withdrawCurrency != null">
+				withdraw_currency = #{withdrawCurrency,jdbcType=VARCHAR},
+			</if>
+			<if test="withdrawMoney != null">
+				withdraw_money = #{withdrawMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="respCode != null">
+				resp_code = #{respCode,jdbcType=VARCHAR},
+			</if>
+			<if test="respMsg != null">
+				resp_msg = #{respMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="transTime != null">
+				trans_time = #{transTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="exTransSeq != null">
+				ex_trans_seq = #{exTransSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="exTransTime != null">
+				ex_trans_time = #{exTransTime,jdbcType=BIGINT},
+			</if>
+			<if test="termDate != null">
+				term_date = #{termDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="transFee != null">
+				trans_fee = #{transFee,jdbcType=DECIMAL},
+			</if>
+			<if test="deductMoney != null">
+				deduct_money = #{deductMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="exCheckStatus != null">
+				ex_check_status = #{exCheckStatus,jdbcType=CHAR},
+			</if>
+			<if test="cCheckStatus != null">
+				c_check_status = #{cCheckStatus,jdbcType=CHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where id = #{id,jdbcType=CHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tomcat360.admin.model.TbTrans">
+		update tb_trans
+		set equipment_id = #{equipmentId,jdbcType=VARCHAR},
+		equipment_log_seq =
+		#{equipmentLogSeq,jdbcType=VARCHAR},
+		ori_id = #{oriId,jdbcType=CHAR},
+		user_id = #{userId,jdbcType=BIGINT},
+		user_token =
+		#{userToken,jdbcType=VARCHAR},
+		user_local_token =
+		#{userLocalToken,jdbcType=VARCHAR},
+		interface_code =
+		#{interfaceCode,jdbcType=VARCHAR},
+		interface_type =
+		#{interfaceType,jdbcType=CHAR},
+		deduct_currency =
+		#{deductCurrency,jdbcType=VARCHAR},
+		withdraw_currency =
+		#{withdrawCurrency,jdbcType=VARCHAR},
+		withdraw_money =
+		#{withdrawMoney,jdbcType=DECIMAL},
+		status = #{status,jdbcType=CHAR},
+		resp_code = #{respCode,jdbcType=VARCHAR},
+		resp_msg =
+		#{respMsg,jdbcType=VARCHAR},
+		trans_time =
+		#{transTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
+		ex_trans_seq =
+		#{exTransSeq,jdbcType=VARCHAR},
+		ex_trans_time =
+		#{exTransTime,jdbcType=BIGINT},
+		term_date =
+		#{termDate,jdbcType=TIMESTAMP},
+		trans_fee =
+		#{transFee,jdbcType=DECIMAL},
+		deduct_money =
+		#{deductMoney,jdbcType=DECIMAL},
+		ex_check_status =
+		#{exCheckStatus,jdbcType=CHAR},
+		c_check_status =
+		#{cCheckStatus,jdbcType=CHAR},
+		price = #{price,jdbcType=DECIMAL}
+		where
+		id = #{id,jdbcType=CHAR}
+	</update>
+	<!-- extend -->
+
+	<select id="findWithdrawInfo" parameterType="Map" resultType="Map">
+		select tt.equipment_log_seq equipmentLogSeq,tt.id,tt.ex_trans_seq
+		exTransSeq,tt.equipment_id equipmentId,tt.user_id
+		userId,tt.withdraw_currency
+		withdrawCurrency ,tt.withdraw_money
+		withdrawMoney,tt.deduct_currency
+		deductCurrency,tt.price,tt.trans_fee
+		transFee,tt.deduct_money deductMoney,tt.trans_time
+		transTime,tt.status,te.country_id countryId,te.country
+		from tb_trans tt
+		,tb_equipment te,tb_user_info tui where tt.user_id = tui.id and
+		tt.interface_code = '/api/auth/drawMoney'
+		and tt.equipment_id = te.id
+		<if test=" countryId != null and countryId != ''">
+			and te.country_id = #{countryId}
+		</if>
+
+		<if test=" id != null and id != ''">
+			and tt.id = #{id}
+		</if>
+
+		<if test=" exTransSeq != null and exTransSeq != ''">
+			and tt.ex_trans_seq = #{exTransSeq}
+		</if>
+
+		<if test=" equipmentLogSeq != null and equipmentLogSeq != ''">
+			and tt.equipment_log_seq = #{equipmentLogSeq}
+		</if>
+
+		<if test=" status != null and status != ''">
+			and tt.status = #{status}
+		</if>
+
+		<if test=" transTime != null">
+			and tt.trans_time &gt;= #{transTime}
+		</if>
+
+		<if test=" transTimeEnd != null">
+			and tt.trans_time &lt; #{transTimeEnd}
+		</if>
+
+		<if test=" equipmentNo != null and equipmentNo != ''">
+			and tt.equipment_id like '%${equipmentNo}%'
+		</if>
+
+		<if test=" userName != null and userName != ''">
+			and tui.user_name like '%${userName}%'
+		</if>
+
+		order by trans_time desc
+	</select>
+
+	<select id="selectNumCurrency" parameterType="String" resultMap="BaseResultMap">
+		select * from tb_trans where deduct_currency = #{_parameter} limit 1
+	</select>
+
+	<select id="getTransSum" parameterType="Map" resultType="Map">
+		select count(1) num,tt.id
+		,sum(tt.deduct_money)
+		deductMoney,tt.deduct_currency
+		deductCurrency,tt.withdraw_currency
+		withdrawCurrency,
+		sum(tt.withdraw_money) withdrawMoney,
+		tt.trans_time
+		transTime ,tt.trans_fee transFee
+		FROM
+		tb_trans tt,tb_equipment te WHERE
+		status = '1' AND tt.equipment_id = te.id
+		<if test=" firstTime != null and firstTime != '' ">
+			and tt.trans_time &gt;= #{firstTime}
+		</if>
+		<if test=" endTime != null and endTime != '' ">
+			and tt.trans_time &lt;= #{endTime}
+		</if>
+		<if test=" countryId != null and countryId != ''">
+			AND te.country_id = #{countryId}
+		</if>
+		<if test=" interfaceCode != null and interfaceCode != ''">
+			AND tt.interface_code = #{interfaceCode}
+		</if>
+		GROUP BY substring(tt.trans_time,1,10),tt.deduct_currency
+		ORDER BY tt.trans_time;
+	</select>
+	
+	
+	
+	<select id="getProfitSum" parameterType="Map" resultType="Map">
+		select
+		t.deduct_currency deductCurrency,withdraw_currency withdrawCurrency,
+		sum(case t.interface_code when '/api/auth/drawMoney' then
+		t.withdraw_money else 0 end) totalDrawAmt,
+		sum(case t.interface_code when '/api/auth/drawMoney' then 1 else 0 end)
+		totalDrawNum,
+		sum(case t.interface_code when '/api/auth/depositMoney' then t.withdraw_money
+		else 0 end) totalDepositAmt,
+		sum(case t.interface_code when '/api/auth/depositMoney' then 1 else 0 end)
+		totalDepositNum,
+		sum(case t.interface_code when '/api/auth/drawMoney' then
+		t.deduct_money-t.trans_fee else 0 end) totalInCurrency,
+		sum(case t.interface_code when '/api/auth/depositMoney' then
+		t.deduct_money-t.trans_fee else 0 end) totalOutCurrency,
+		sum(t.trans_fee) totalFeeCurrency
+		from tb_trans t
+		left join tb_equipment e on t.equipment_id=e.id
+		where interface_type='0' and t.status='1'
+		and e.country_id = #{countryId}
+		group by deduct_currency
+
+	</select>
+</mapper>

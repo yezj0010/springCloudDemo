@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tomcat360.atm.mapper.TbPCheckTransMapper" >
+  <resultMap id="BaseResultMap" type="com.tomcat360.atm.model.TbPCheckTrans" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="atmc_seq" property="atmcSeq" jdbcType="VARCHAR" />
+    <result column="atmp_seq" property="atmpSeq" jdbcType="VARCHAR" />
+    <result column="ex_seq" property="exSeq" jdbcType="VARCHAR" />
+    <result column="check_batch_no" property="checkBatchNo" jdbcType="VARCHAR" />
+    <result column="equipment_id" property="equipmentId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="withdraw_money" property="withdrawMoney" jdbcType="DECIMAL" />
+    <result column="withdraw_currency" property="withdrawCurrency" jdbcType="VARCHAR" />
+    <result column="deduct_currency" property="deductCurrency" jdbcType="VARCHAR" />
+    <result column="deduct_money" property="deductMoney" jdbcType="DECIMAL" />
+    <result column="deduct_fee" property="deductFee" jdbcType="DECIMAL" />
+    <result column="trans_time" property="transTime" jdbcType="TIMESTAMP" />
+    <result column="trans_status" property="transStatus" jdbcType="CHAR" />
+    <result column="with_ex_diff" property="withExDiff" jdbcType="CHAR" />
+    <result column="with_c_diff" property="withCDiff" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, atmc_seq, atmp_seq, ex_seq, check_batch_no, equipment_id, user_id, withdraw_money, 
+    withdraw_currency, deduct_currency, deduct_money, deduct_fee, trans_time, trans_status, 
+    with_ex_diff, with_c_diff
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tomcat360.atm.model.TbPCheckTransExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_p_check_trans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_p_check_trans
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_p_check_trans
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tomcat360.atm.model.TbPCheckTransExample" >
+    delete from tb_p_check_trans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tomcat360.atm.model.TbPCheckTrans" >
+    insert into tb_p_check_trans (id, atmc_seq, atmp_seq, 
+      ex_seq, check_batch_no, equipment_id, 
+      user_id, withdraw_money, withdraw_currency, 
+      deduct_currency, deduct_money, deduct_fee, 
+      trans_time, trans_status, with_ex_diff, 
+      with_c_diff)
+    values (#{id,jdbcType=BIGINT}, #{atmcSeq,jdbcType=VARCHAR}, #{atmpSeq,jdbcType=VARCHAR}, 
+      #{exSeq,jdbcType=VARCHAR}, #{checkBatchNo,jdbcType=VARCHAR}, #{equipmentId,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{withdrawMoney,jdbcType=DECIMAL}, #{withdrawCurrency,jdbcType=VARCHAR}, 
+      #{deductCurrency,jdbcType=VARCHAR}, #{deductMoney,jdbcType=DECIMAL}, #{deductFee,jdbcType=DECIMAL}, 
+      #{transTime,jdbcType=TIMESTAMP}, #{transStatus,jdbcType=CHAR}, #{withExDiff,jdbcType=CHAR}, 
+      #{withCDiff,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tomcat360.atm.model.TbPCheckTrans" >
+    insert into tb_p_check_trans
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="atmcSeq != null" >
+        atmc_seq,
+      </if>
+      <if test="atmpSeq != null" >
+        atmp_seq,
+      </if>
+      <if test="exSeq != null" >
+        ex_seq,
+      </if>
+      <if test="checkBatchNo != null" >
+        check_batch_no,
+      </if>
+      <if test="equipmentId != null" >
+        equipment_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="withdrawMoney != null" >
+        withdraw_money,
+      </if>
+      <if test="withdrawCurrency != null" >
+        withdraw_currency,
+      </if>
+      <if test="deductCurrency != null" >
+        deduct_currency,
+      </if>
+      <if test="deductMoney != null" >
+        deduct_money,
+      </if>
+      <if test="deductFee != null" >
+        deduct_fee,
+      </if>
+      <if test="transTime != null" >
+        trans_time,
+      </if>
+      <if test="transStatus != null" >
+        trans_status,
+      </if>
+      <if test="withExDiff != null" >
+        with_ex_diff,
+      </if>
+      <if test="withCDiff != null" >
+        with_c_diff,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="atmcSeq != null" >
+        #{atmcSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="atmpSeq != null" >
+        #{atmpSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="exSeq != null" >
+        #{exSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="checkBatchNo != null" >
+        #{checkBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawMoney != null" >
+        #{withdrawMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawCurrency != null" >
+        #{withdrawCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="deductCurrency != null" >
+        #{deductCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="deductMoney != null" >
+        #{deductMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="deductFee != null" >
+        #{deductFee,jdbcType=DECIMAL},
+      </if>
+      <if test="transTime != null" >
+        #{transTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transStatus != null" >
+        #{transStatus,jdbcType=CHAR},
+      </if>
+      <if test="withExDiff != null" >
+        #{withExDiff,jdbcType=CHAR},
+      </if>
+      <if test="withCDiff != null" >
+        #{withCDiff,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tomcat360.atm.model.TbPCheckTransExample" resultType="java.lang.Integer" >
+    select count(*) from tb_p_check_trans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_p_check_trans
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.atmcSeq != null" >
+        atmc_seq = #{record.atmcSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atmpSeq != null" >
+        atmp_seq = #{record.atmpSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exSeq != null" >
+        ex_seq = #{record.exSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkBatchNo != null" >
+        check_batch_no = #{record.checkBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentId != null" >
+        equipment_id = #{record.equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.withdrawMoney != null" >
+        withdraw_money = #{record.withdrawMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.withdrawCurrency != null" >
+        withdraw_currency = #{record.withdrawCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deductCurrency != null" >
+        deduct_currency = #{record.deductCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deductMoney != null" >
+        deduct_money = #{record.deductMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deductFee != null" >
+        deduct_fee = #{record.deductFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.transTime != null" >
+        trans_time = #{record.transTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.transStatus != null" >
+        trans_status = #{record.transStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.withExDiff != null" >
+        with_ex_diff = #{record.withExDiff,jdbcType=CHAR},
+      </if>
+      <if test="record.withCDiff != null" >
+        with_c_diff = #{record.withCDiff,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_p_check_trans
+    set id = #{record.id,jdbcType=BIGINT},
+      atmc_seq = #{record.atmcSeq,jdbcType=VARCHAR},
+      atmp_seq = #{record.atmpSeq,jdbcType=VARCHAR},
+      ex_seq = #{record.exSeq,jdbcType=VARCHAR},
+      check_batch_no = #{record.checkBatchNo,jdbcType=VARCHAR},
+      equipment_id = #{record.equipmentId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      withdraw_money = #{record.withdrawMoney,jdbcType=DECIMAL},
+      withdraw_currency = #{record.withdrawCurrency,jdbcType=VARCHAR},
+      deduct_currency = #{record.deductCurrency,jdbcType=VARCHAR},
+      deduct_money = #{record.deductMoney,jdbcType=DECIMAL},
+      deduct_fee = #{record.deductFee,jdbcType=DECIMAL},
+      trans_time = #{record.transTime,jdbcType=TIMESTAMP},
+      trans_status = #{record.transStatus,jdbcType=CHAR},
+      with_ex_diff = #{record.withExDiff,jdbcType=CHAR},
+      with_c_diff = #{record.withCDiff,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tomcat360.atm.model.TbPCheckTrans" >
+    update tb_p_check_trans
+    <set >
+      <if test="atmcSeq != null" >
+        atmc_seq = #{atmcSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="atmpSeq != null" >
+        atmp_seq = #{atmpSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="exSeq != null" >
+        ex_seq = #{exSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="checkBatchNo != null" >
+        check_batch_no = #{checkBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentId != null" >
+        equipment_id = #{equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawMoney != null" >
+        withdraw_money = #{withdrawMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawCurrency != null" >
+        withdraw_currency = #{withdrawCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="deductCurrency != null" >
+        deduct_currency = #{deductCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="deductMoney != null" >
+        deduct_money = #{deductMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="deductFee != null" >
+        deduct_fee = #{deductFee,jdbcType=DECIMAL},
+      </if>
+      <if test="transTime != null" >
+        trans_time = #{transTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transStatus != null" >
+        trans_status = #{transStatus,jdbcType=CHAR},
+      </if>
+      <if test="withExDiff != null" >
+        with_ex_diff = #{withExDiff,jdbcType=CHAR},
+      </if>
+      <if test="withCDiff != null" >
+        with_c_diff = #{withCDiff,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tomcat360.atm.model.TbPCheckTrans" >
+    update tb_p_check_trans
+    set atmc_seq = #{atmcSeq,jdbcType=VARCHAR},
+      atmp_seq = #{atmpSeq,jdbcType=VARCHAR},
+      ex_seq = #{exSeq,jdbcType=VARCHAR},
+      check_batch_no = #{checkBatchNo,jdbcType=VARCHAR},
+      equipment_id = #{equipmentId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      withdraw_money = #{withdrawMoney,jdbcType=DECIMAL},
+      withdraw_currency = #{withdrawCurrency,jdbcType=VARCHAR},
+      deduct_currency = #{deductCurrency,jdbcType=VARCHAR},
+      deduct_money = #{deductMoney,jdbcType=DECIMAL},
+      deduct_fee = #{deductFee,jdbcType=DECIMAL},
+      trans_time = #{transTime,jdbcType=TIMESTAMP},
+      trans_status = #{transStatus,jdbcType=CHAR},
+      with_ex_diff = #{withExDiff,jdbcType=CHAR},
+      with_c_diff = #{withCDiff,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
