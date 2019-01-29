@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sms")
 public class SMSController {
 
-	
+
 }
