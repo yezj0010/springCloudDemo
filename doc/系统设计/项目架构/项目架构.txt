@@ -1,0 +1,26 @@
+1.该演示项目，分为8个模块，分别为：
+sevice-center(注册中心)
+gateway（网关服务）
+admin（后台管理服务）
+atm（app服务）
+timer（定时任务）
+third（第三方服务）
+websocket（推送服务）
+
+
+
+
+2.使用的技术
+2.1 sevice-center(注册中心)
+
+
+2.2 gateway（网关服务）
+
+
+2.3 admin（后台管理服务）
+rabbitmq
+mongodb
+redis
+
+
+

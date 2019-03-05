@@ -1,6 +1,5 @@
 package com.tomcat360.admin.config;
 
-import com.tomcat360.admin.constant.MqQueueConstant;
 import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
