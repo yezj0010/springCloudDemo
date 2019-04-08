@@ -1,0 +1,61 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>WebSocket with SockJS</title>
+</head>
+<body>
+<h1>demo</h1>
+from:<input type="text" id="from"><br>
+test:<input type="text" id="text"><br>
+<input type="button" onclick="sendMessage()" value="发送">
+<ul id="response">
+</ul>
+<script type="text/javascript" src="sockjs.min.js"></script>
+<script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
+<script>
+    var socket = new SockJS('http://localhost:7601/yezjEndpoint');
+    var stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function(frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/aaa', function(messageOutput) {
+            showMessageOutput(JSON.parse(messageOutput.body));
+        });
+
+        stompClient.subscribe('/topic2/bbb', function(messageOutput) {
+            showMessageOutput(JSON.parse(messageOutput.body));
+        });
+
+        stompClient.subscribe('/topic2/greetings', function(messageOutput) {
+            showMessageOutput(JSON.parse(messageOutput.body));
+        });
+
+        stompClient.subscribe('/user/xiaoming/single', function(messageOutput) {
+            showMessageOutput(JSON.parse(messageOutput.body));
+        });
+    });
+
+    function disconnect() {
+       if(stompClient != null) {
+              stompClient.disconnect();
+           }
+       setConnected(false);
+       console.log("Disconnected");
+    }
+
+    function sendMessage() {
+        var from = document.getElementById('from').value;
+        var text = document.getElementById('text').value;
+        stompClient.send("/app-send/hello2", {}, JSON.stringify({'from': from,'text': text}));
+    }
+
+    function showMessageOutput(messageOutput) {
+        var response = document.getElementById('response');
+        var p = document.createElement('p');
+        p.style.wordWrap = 'break-word';
+        p.appendChild(document.createTextNode(messageOutput.from+":"+messageOutput.text));
+        response.appendChild(p);
+    }
+</script>
+</body>
+</html>
