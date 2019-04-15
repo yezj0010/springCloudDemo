@@ -1,3 +1,8 @@
+server:
+  port: 5601
+  tomcat:
+    basedir: temp
+
 spring:
   application:
     name: third #应用名称
@@ -75,9 +80,6 @@ spring:
     multipart: 
       maxFileSize: 1024Mb
       maxRequestSize: 1024Mb
-    
-server:
-  port: 5601
 
 feign:
   hystrix:

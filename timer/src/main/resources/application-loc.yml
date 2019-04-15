@@ -1,9 +1,25 @@
 server:
   port: 6601
+  tomcat:
+    basedir: temp
 
 spring:
   application:
     name: timer #应用名称
+  cloud:
+    consul:
+      host: 192.168.159.131
+      port: 8500
+      discovery:
+        register: true
+        hostname: ${spring.cloud.client.ipAddress}
+        serviceName: ${spring.application.name}
+        preferIpAddress: true
+        #healthCheckPath: /check  #自定义健康监测接口
+        healthCheckInterval: 15s
+        healthCheckCriticalTimeout: 60s
+        tags: 定时任务服务
+        instanceId: ${spring.application.name}-${spring.cloud.consul.discovery.hostname}
 # 数据库连接配置
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/atm?characterEncoding=UTF-8&useSSL=false
@@ -36,22 +52,6 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000  #Feign超时时间
-
-
-#服务注册与发现
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:2001/eureka/  #Eureka Server
-
-  #服务注册时，在Eureka的实例配置
-  #metadata-map.cluster：指定服务集群名称（一个服务集群包括多个app）
-  instance:
-    preferIpAddress: true
-    statusPageUrlPath: /info
-    metadata-map:
-      cluster: main 
-
 #自定义参数
 appConfig:
   appName: atmTimer

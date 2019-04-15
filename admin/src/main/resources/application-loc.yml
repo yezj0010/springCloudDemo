@@ -42,7 +42,7 @@ spring:
     generate-ddl: false
   data:
     mongodb:
-      uri: mongodb://192.168.159.139:27017/test
+      uri: mongodb://192.168.159.131:27017/test
   redis:
     timeout: 20000
     #集群环境打开下面注释，单机不需要打开

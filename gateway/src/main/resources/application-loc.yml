@@ -1,3 +1,8 @@
+server:
+  port: 2600
+  tomcat:
+    basedir: temp
+
 spring:
   application:
     name: gateway #应用名称
@@ -19,9 +24,6 @@ spring:
         healthCheckCriticalTimeout: 60s
         tags: gate网关服务
         instanceId: ${spring.application.name}-${spring.cloud.consul.discovery.hostname}
-      
-server:
-  port: 2000
 
 zuul:
   retryable: false # 不允许重试
