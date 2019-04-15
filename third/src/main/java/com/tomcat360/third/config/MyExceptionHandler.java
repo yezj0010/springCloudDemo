@@ -3,6 +3,7 @@ package com.tomcat360.third.config;
 
 import com.tomcat360.third.enums.response.EnumResponseMsg;
 import com.tomcat360.third.model.JSONData;
+import com.tomcat360.third.properties.AppProperties;
 import com.tomcat360.third.service.DingDingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,15 @@ public class MyExceptionHandler {
 	@Autowired
 	private DingDingService dingDingService;
 
+	@Autowired
+	private AppProperties appProperties;
+
     @ExceptionHandler(value = Throwable.class)
     @ResponseBody
     public JSONData handle(Throwable e,HttpServletRequest request) {
     	log.error("统一异常处理打印日志",e);
     	try{
-			dingDingService.send(new StringBuilder(e.getMessage()));
+			dingDingService.send(new StringBuilder(appProperties.getAppNameCn()+":"+e.getMessage()));
 		}catch (Exception e2){
 			log.error("发送钉钉消息失败",e2);
 		}

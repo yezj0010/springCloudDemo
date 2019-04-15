@@ -2,6 +2,8 @@ package com.tomcat360.admin.config;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.tomcat360.admin.microservice.DingDingService;
+import com.tomcat360.admin.properties.AppProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,11 +33,23 @@ public class MyExceptionHandler {
 	@Autowired
 	private AdminLogService adminLogService;
 
+	@Autowired
+	private DingDingService dingDingService;
+
+	@Autowired
+	private AppProperties appProperties;
+
     @ExceptionHandler(value = Throwable.class)
     @ResponseBody
     public JSONData handle(Throwable e,HttpServletRequest request) {
     	log.error("统一异常处理打印日志"+e);
     	log.error(LogUtils.getExceptionInfo(e));
+
+		try{
+			dingDingService.send(appProperties.getAppNameCn()+":"+e.getMessage());
+		}catch (Exception e1){
+			log.error("统一异常处理：发送钉钉提醒失败",e);
+		}
     	
     	//如果异常，更新日志状态
     	TbAdminLog adminLog = (TbAdminLog)request.getAttribute(AdminConstant.LOG);

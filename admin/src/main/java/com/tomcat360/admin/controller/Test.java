@@ -1,5 +1,6 @@
 package com.tomcat360.admin.controller;
 
+import com.tomcat360.admin.enums.EnumResponseMsg;
 import com.tomcat360.admin.microservice.DingDingService;
 import com.tomcat360.admin.model.JSONData;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,18 @@ public class Test {
 
 	@PostMapping("/sendToDing")
 	public JSONData test(String message){
-		log.info("1111");
 		return dingDingService.send(message);
 	}
+
+	@PostMapping("/testError")
+	public JSONData testError(){
+		if(1==1){
+			int a=0;
+			double b = 10/a;
+		}
+
+		return JSONData.builder().msg(EnumResponseMsg.RESP_SUCCESS.getMsg())
+				.code(EnumResponseMsg.RESP_SUCCESS.getCode()).build();
+	}
+
 }
