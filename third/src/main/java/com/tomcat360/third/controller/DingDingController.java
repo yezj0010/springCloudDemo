@@ -6,6 +6,7 @@ import com.tomcat360.third.service.DingDingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -32,7 +33,7 @@ public class DingDingController {
 	}
 
 	@PostMapping("/send")
-	public JSONData send(String message){
+	public JSONData send(@RequestParam("message") String message){
 
 		dingDingService.send(new StringBuilder(message));
 

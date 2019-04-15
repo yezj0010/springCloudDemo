@@ -110,6 +110,8 @@ public enum EnumResponseMsg {
     RESP_ERROR_SYSTEM_CODE("1055","系统参数的code无法修改"),
     /** 该地区的法币类型还未开通|Area legal tender type not opened=1056 **/
     RESP_AREA_CURRENCY_NOTOPEN("1056","该地区的法币类型还未开通|Area legal tender type not opened"),
+    /** 调用微服务超时=1057 **/
+    RESP_SERVICE_TIME_OUT("1057","调用微服务超时"),
     ;
 
 	/**响应编码--code**/

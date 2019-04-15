@@ -5,6 +5,20 @@ spring:
     multipart: 
       maxFileSize: 1024Mb
       maxRequestSize: 1024Mb
+  cloud:
+    consul:
+      host: 192.168.159.131
+      port: 8500
+      discovery:
+        register: true
+        hostname: ${spring.cloud.client.ipAddress}
+        serviceName: ${spring.application.name}
+        preferIpAddress: true
+        #healthCheckPath: /check  #自定义健康监测接口
+        healthCheckInterval: 15s
+        healthCheckCriticalTimeout: 60s
+        tags: gate网关服务
+        instanceId: ${spring.application.name}-${spring.cloud.consul.discovery.hostname}
       
 server:
   port: 2000
@@ -17,25 +31,12 @@ zuul:
   routes:
     atm-server:
       path: /Api-Atm/**
-      serviceId: atm_service
+      serviceId: atm-service
       sensitiveHeaders: "*"
     admin-server:
       path: /Api-Admin/**
-      serviceId: admin_service
+      serviceId: admin-service
       sensitiveHeaders: "*"
-
-#服务注册与发现
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:2001/eureka/  #Eureka Server
-  #服务注册时，在Eureka的实例配置
-  #metadata-maw.cluster：指定服务集群名称（一个服务集群包括多个app）
-  instance:
-    preferIpAddress: true
-    statusPageUrlPath: /info
-    metadata-map:
-      cluster: main
 
 hystrix:
   command:
