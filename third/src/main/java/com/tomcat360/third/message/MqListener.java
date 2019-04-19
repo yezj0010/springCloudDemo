@@ -7,6 +7,13 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by jin.Deng on 2019/4/18.
+ *
+ * 订阅给定destination的所有group会接收到发布消息的一个副本，
+ * 但是在每个group中，只有一个成员会从destination接收到这个消息。
+ * 默认情况下，没有指定group的时候，Spring Cloud Stream会将应用程序分配到一个匿名、独立且单一的消费者组，
+ * 这个消费者组与所有其他消费者组都出于同一个发布-订阅关系中。
+ *
+ * 要模拟同一个group中多个成员，只需要多启动几个third即可。
  */
 @Component
 @EnableBinding({MqClient.class})
