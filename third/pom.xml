@@ -103,6 +103,12 @@
             <artifactId>okhttp</artifactId>
         </dependency>
 
+        <!-- spring cloud stream -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+        </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>

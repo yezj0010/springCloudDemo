@@ -20,6 +20,16 @@ spring:
         healthCheckCriticalTimeout: 60s
         tags: 第三方服务
         instanceId: ${spring.application.name}-${spring.cloud.consul.discovery.hostname}
+    stream:
+      default-binder: rabbit
+      bindings:
+        testAaaQueue:
+          destination: test-stream-exchange
+          group: aaa-group
+        testAaaQueue2:
+          destination: test-stream-exchange
+          group: aaa2-group
+
 # 数据库连接配置
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/atm?characterEncoding=UTF-8&useSSL=false

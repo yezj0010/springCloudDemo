@@ -20,6 +20,15 @@ spring:
         healthCheckCriticalTimeout: 60s
         tags: atm服务
         instanceId: ${spring.application.name}-${spring.cloud.consul.discovery.hostname}
+    stream:
+      default-binder: rabbit
+      bindings:
+        testAaaQueue:
+          destination: test-stream-exchange
+          group: aaa-group
+        testAaaQueue2:
+          destination: test-stream-exchange
+          group: aaa2-group
 # 数据库连接配置
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/atm?characterEncoding=UTF-8&useSSL=false
@@ -56,6 +65,13 @@ spring:
       min-idle: 0
     # 连接超时时间（毫秒）
     timeout: 5000
+  rabbitmq:
+    publisher-confirms: true
+    virtual-host: demo
+    username: ubuntu
+    password: 123456
+    addresses: 192.168.159.131:5672,192.168.159.133:5672
+
 
 mybatis:
   #配置模型路径
